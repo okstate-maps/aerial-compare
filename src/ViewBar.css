@@ -1,0 +1,15 @@
+.ViewBar-container {
+	height:30vh;
+	min-height: 100px;
+	background-color:tomato;
+	width:100%;
+	position: fixed;
+	overflow: auto;
+	overflow-y: hidden;
+	white-space: nowrap;
+}
+
+
+.bottom {
+	bottom:0;
+}

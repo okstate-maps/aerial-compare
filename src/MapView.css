@@ -1,0 +1,76 @@
+
+.map0 {
+  height: 65vh;
+  width: 100%;
+  display:inline-block;
+}
+
+@media (max-width:800px) {
+	.leaflet-container{
+		display: block;
+		width:100%;
+	}
+	.map1 {
+		height:65vh;
+	}
+	.map2 {
+		height:32.5vh;
+	}
+
+	.map3 {
+		height:21.66666666666667vh;
+	}
+
+	.map4 {
+		height:16.25vh;
+	}
+
+}
+
+@media (min-width:800px) {
+	.leaflet-container {
+		display: inline-block;
+		height:65vh;
+	}
+	.map1 {
+		width:100%;
+	}
+
+	.map2 {
+		width:50%;
+	}
+
+	.map3 {
+		width:33.33333333%;
+	}
+
+	.map4 {
+		width: 50%;
+		height:32.5vh;
+	}
+
+	.map4.p0 {
+		top:0;
+		left:0;
+	}
+	.map4.p1 {
+		top:0;
+		right:0;
+	}
+	.map4.p2 {
+		bottom:0;
+		left:0;
+	}
+	.map4.p3 {
+		bottom:0;
+		right:0;
+	}
+
+	.map5 {
+		width: 20%;
+	}
+	.map6 {
+		width: 16.666667%;
+	}
+
+}
