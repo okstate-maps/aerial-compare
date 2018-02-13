@@ -6,29 +6,20 @@ class Item extends Component {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
-    this.onClickCallback = this.onClickCallback.bind(this);
     this.state = {isToggledOn: false,
-                  opacity: 0.5};
+                  opacity: 1.0};
   }
-
-  onClickCallback(){
-    console.log("wooooooo");
-    //when clicked, send a combination of state/props data up the pipeline to ViewBar->App->MapView
-    this.props.onItemClick({
-      "opacity": this.state.opacity,
-      "isToggledOn": this.state.isToggledOn,
-      "id": this.props.id
-    });
-
-  }
-
+ 
   onClick(e) {
-
     this.setState(prevState => ({
       isToggledOn: !prevState.isToggledOn,
-      opacity: this.state.opacity
-    }), this.onClickCallback());
-
+      opacity: 1.0
+    }));
+    this.props.onItemClick({
+      "opacity": 1.0,
+      "isToggledOn": !this.state.isToggledOn,
+      "id": this.props.id
+    });
   }
 
   render() {

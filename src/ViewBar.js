@@ -10,6 +10,8 @@ class ViewBar extends Component {
   }
 
   handleItemClick(data) {
+   // console.log("handleItemClick in ViewBar")
+   // console.log(data)
     this.props.onItemClick(data);
   }
 
