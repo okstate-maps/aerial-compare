@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Map, TileLayer, Marker, Popup} from 'react-leaflet';
+import Control from 'react-leaflet-control';
+import {Map, TileLayer, WMSTileLayer} from 'react-leaflet';
 import EsriTiledMapLayer from './EsriTiledMapLayer';
-import Sync from 'leaflet.sync';
+import 'leaflet.sync';
 import './MapView.css';
 
 //const { Map, TileLayer, Marker, Popup } = ReactLeaflet
@@ -97,6 +98,10 @@ class MapView extends Component {
   onViewportChanged(viewport) { 
     // The viewport got changed by the user, keep track in state
     console.log("viewport changed");
+
+    //putting viewport into state results in (near) infinite loop of componentdidupdates
+    //probably because L.sync is not react-ified
+    //so just use good ole generic this.viewport instead
     this.viewport = viewport;
   }
 
@@ -108,6 +113,9 @@ class MapView extends Component {
       if (lyr.isToggledOn){
         return true;
       }
+      else {
+        return false;
+      }
     })
 
     if (filtered_layers.length === 0){
@@ -115,17 +123,15 @@ class MapView extends Component {
       return (
       
         <Map onViewportChanged={this.onViewportChanged} ref='map0' className='map0' viewport={this.viewport}>
-          {/*
-          <Marker position={this.viewport.center}>
-            <Popup>
-              <span>A pretty CSS3 popup. <br/> Easily customizable.</span>
-            </Popup>
-          </Marker>
-        */}
-          <TileLayer
-            attribution='&copy; <a href="http://mapbox.com">Mapbox</a>'
-            url='https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia3JkeWtlIiwiYSI6Ik15RGcwZGMifQ.IR_NpAqXL1ro8mFeTIdifg'
-          />      
+         {/*<TileLayer
+                attribution='&copy; <a href="http://mapbox.com">Mapbox</a>'
+                url='https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia3JkeWtlIiwiYSI6Ik15RGcwZGMifQ.IR_NpAqXL1ro8mFeTIdifg'
+              />*/}
+          <WMSTileLayer
+            url="https://gis.apfo.usda.gov/arcgis/services/NAIP/Oklahoma/ImageServer/WMSServer"
+            layers="0"
+            attribution="<a href='https://gis.apfo.usda.gov/arcgis/rest/services/NAIP/Oklahoma/ImageServer'>NAIP</a>"
+          />           
         </Map>
       );
     }
@@ -141,22 +147,16 @@ class MapView extends Component {
                  className ={'map'+ filtered_layers.length + ' p' + index}  
                  key={layer.id} 
                 viewport={this.viewport}>
-             {/*
-              <Marker position={this.viewport.center}>
-                <Popup>
-                  <span>A pretty CSS3 popup. <br/> Easily customizable.</span>
-                </Popup>
-              </Marker>*/}
-              <TileLayer
-                attribution='&copy; <a href="http://mapbox.com">Mapbox</a>'
-                url='https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia3JkeWtlIiwiYSI6Ik15RGcwZGMifQ.IR_NpAqXL1ro8mFeTIdifg'
-              />      
-               <EsriTiledMapLayer 
+              <EsriTiledMapLayer 
                   key={layer.id} 
                   url={this.arcgis_service_url.replace("{{id}}", layer.id)}
                   opacity={layer.opacity} />
+              <Control position="topright">
+                <span class="map-title">{layer.display_name}</span>
+              </Control>
             </Map>
           )}
+        
         </div>
       );
     }

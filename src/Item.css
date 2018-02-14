@@ -5,7 +5,6 @@ li.item {
     min-width: 80px;
     margin: 2.5vh;
     display: inline-block;
-    background-image: url("/assets/images/thumb_stw1938.jpg");
     background-position: center;
     background-size: contain;
 }
@@ -16,6 +15,11 @@ li.item span {
 	top:0.5em;
 	text-shadow: black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em;
 	max-width: 80px;
+
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+  	-moz-user-select: none;     /* Firefox all */
+  	-ms-user-select: none;      /* IE 10+ */
+  	user-select: none;          /* Likely future */  
 }
 
 .item.on {

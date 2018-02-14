@@ -1,6 +1,4 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import Leaflet from 'leaflet';
 import {TileLayer} from 'react-leaflet';
 import {tiledMapLayer} from 'esri-leaflet';
 

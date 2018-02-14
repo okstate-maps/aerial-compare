@@ -18,7 +18,8 @@ class Item extends Component {
     this.props.onItemClick({
       "opacity": 1.0,
       "isToggledOn": !this.state.isToggledOn,
-      "id": this.props.id
+      "id": this.props.id,
+      "display_name": this.props.display_name
     });
   }
 
@@ -26,6 +27,7 @@ class Item extends Component {
     return (
       <li className={this.state.isToggledOn ? 'item on' : 'item off'} 
           onClick={this.onClick} 
+          style={{backgroundImage: "url(/assets/images/thumb_" + this.props.id + ".JPG)"}}
           id={this.props.id}> 
         <span>{this.props.display_name}</span>
       </li>
