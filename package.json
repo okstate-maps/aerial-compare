@@ -2,7 +2,7 @@
   "name": "stillwater-aerials-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/okstate-maps/aerial-compare",
+  "homepage": "https://okstate-maps.github.io/aerial-compare",
   "dependencies": {
     "esri-leaflet": "^2.1.2",
     "gh-pages": "^1.1.0",
