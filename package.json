@@ -2,8 +2,10 @@
   "name": "stillwater-aerials-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/okstate-maps/aerial-compare",
   "dependencies": {
     "esri-leaflet": "^2.1.2",
+    "gh-pages": "^1.1.0",
     "leaflet": "^1.3.1",
     "leaflet.sync": "^0.2.2",
     "prop-types": "^15.6.0",
@@ -15,6 +17,8 @@
     "webfontloader": "^1.6.28"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

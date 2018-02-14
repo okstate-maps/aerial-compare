@@ -152,11 +152,11 @@ class MapView extends Component {
                   url={this.arcgis_service_url.replace("{{id}}", layer.id)}
                   opacity={layer.opacity} />
               <Control position="topright">
-                <span class="map-title">{layer.display_name}</span>
+                <span className="map-title">{layer.display_name}</span>
               </Control>
             </Map>
           )}
-        
+
         </div>
       );
     }
