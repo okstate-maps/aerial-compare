@@ -21,6 +21,7 @@ class App extends Component {
   handleItemClick(data) {
     var found = false;
     var newState;
+
     this.state.layers.forEach(function(lyr, index){
       if (data.id === lyr.id){
         found = [true,index];
@@ -28,10 +29,11 @@ class App extends Component {
     });
 
     if (!found){
-      this.setState({"layers": this.state.layers.concat([data])});
+      this.setState({"layers": [...this.state.layers,data]});
     }
     else {
-      newState = this.state.layers[found[1]] = data;
+      newState = JSON.parse(JSON.stringify(this.state));
+      newState.layers[found[1]] = data;
       this.setState(newState);
 
     }

@@ -109,6 +109,12 @@ class MapView extends Component {
 
     // Use ids from layers array to create list of urls
     const layers = this.props.layers;
+    const layer_components = {
+      "EsriTiledMapLayer": EsriTiledMapLayer,
+      "WMSTileLayer": WMSTileLayer,
+      "TileLayer": TileLayer
+    }
+    const that = this;
     var filtered_layers = layers.filter(function(lyr){
       if (lyr.isToggledOn){
         return true;
@@ -122,7 +128,7 @@ class MapView extends Component {
 
       return (
       
-        <Map onViewportChanged={this.onViewportChanged} ref='map0' className='map0' viewport={this.viewport}>
+        <Map onViewportChanged={that.onViewportChanged} ref='map0' className='map0' viewport={that.viewport}>
          {/*<TileLayer
                 attribution='&copy; <a href="http://mapbox.com">Mapbox</a>'
                 url='https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia3JkeWtlIiwiYSI6Ik15RGcwZGMifQ.IR_NpAqXL1ro8mFeTIdifg'
@@ -140,23 +146,23 @@ class MapView extends Component {
       return (
         <div id='maps'>
 
-        {filtered_layers.map((layer, index) =>
-
-            <Map ref={layer.id} 
-                 onViewportChanged={this.onViewportChanged}
+        {filtered_layers.map(function(layer, index) {
+          let Layer = layer_components[layer.type];
+          return <Map ref={layer.id} 
+                 onViewportChanged={that.onViewportChanged}
                  className ={'map'+ filtered_layers.length + ' p' + index}  
                  key={layer.id} 
-                viewport={this.viewport}>
-              <EsriTiledMapLayer 
+                viewport={that.viewport}>
+              <Layer 
                   key={layer.id} 
-                  url={this.arcgis_service_url.replace("{{id}}", layer.id)}
+                  url={layer.url}
                   opacity={layer.opacity} />
               <Control position="topright">
                 <span className="map-title">{layer.display_name}</span>
               </Control>
             </Map>
-          )}
-
+          })
+        }
         </div>
       );
     }
