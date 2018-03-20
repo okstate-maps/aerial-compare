@@ -29,11 +29,14 @@ class App extends Component {
     });
 
     if (!found){
-      this.setState({"layers": [...this.state.layers,data]});
+      this.setState({"layers": [...this.state.layers, data]});
     }
     else {
       newState = JSON.parse(JSON.stringify(this.state));
       newState.layers[found[1]] = data;
+
+      //rearrange the layers array so display order matches clicked order
+      newState.layers.splice(newState.layers.length - 1, 0, newState.layers.splice(found[1], 1)[0]);
       this.setState(newState);
 
     }

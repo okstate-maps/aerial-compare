@@ -2,11 +2,12 @@
 
 Each layer has the following required values:
 
-sortVal {numeric}: value to be used to determine sort order
-type {string}: The Leaflet layer type. Values can be WMSTileLayer, EsriTiledMapLayer, TiledLayer, and others.
-	See Leaflet documentation for others. Esri Leaflet has more also, but they need porting to leaflet-react.
-id {string}: A unique identifier used to keep React happy.
-display_name {string}: What you want to be displayed over the layer's selection tile.
+	sortVal {numeric}: value to be used to determine sort order
+	type {string}: The Leaflet layer type. Values can be WMSTileLayer, EsriTiledMapLayer, TiledLayer, and others.
+		See Leaflet documentation for others. Esri Leaflet has more also, but they need porting to leaflet-react.
+	id {string}: A unique identifier used to keep React happy.
+	display_name {string}: What you want to be displayed over the layer's selection tile.
+	url {string}: The url to 
 
 */
 

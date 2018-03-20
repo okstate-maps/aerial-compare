@@ -19,7 +19,7 @@ class ViewBar extends Component {
   render() {
     const items = LayersInfo;
     return (
-      <div className='ViewBar-container bottom'>
+      <footer className='ViewBar-container bottom'>
         <ul>
             {items.map((item) => <Item 
               key={item.id} 
@@ -31,7 +31,7 @@ class ViewBar extends Component {
               onItemClick={this.handleItemClick}
             />)}
         </ul>
-      </div>
+      </footer>
     );
   }
 }

@@ -127,18 +127,19 @@ class MapView extends Component {
     if (filtered_layers.length === 0){
 
       return (
-      
-        <Map onViewportChanged={that.onViewportChanged} ref='map0' className='map0' viewport={that.viewport}>
-         {/*<TileLayer
-                attribution='&copy; <a href="http://mapbox.com">Mapbox</a>'
-                url='https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia3JkeWtlIiwiYSI6Ik15RGcwZGMifQ.IR_NpAqXL1ro8mFeTIdifg'
-              />*/}
-          <WMSTileLayer
-            url="https://gis.apfo.usda.gov/arcgis/services/NAIP/Oklahoma/ImageServer/WMSServer"
-            layers="0"
-            attribution="<a href='https://gis.apfo.usda.gov/arcgis/rest/services/NAIP/Oklahoma/ImageServer'>NAIP</a>"
-          />           
-        </Map>
+        <div id='maps'>
+          <Map onViewportChanged={that.onViewportChanged} ref='map0' className='map0' viewport={that.viewport}>
+           {/*<TileLayer
+                  attribution='&copy; <a href="http://mapbox.com">Mapbox</a>'
+                  url='https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia3JkeWtlIiwiYSI6Ik15RGcwZGMifQ.IR_NpAqXL1ro8mFeTIdifg'
+                />*/}
+            <WMSTileLayer
+              url="https://gis.apfo.usda.gov/arcgis/services/NAIP/Oklahoma/ImageServer/WMSServer"
+              layers="0"
+              attribution="<a href='https://gis.apfo.usda.gov/arcgis/rest/services/NAIP/Oklahoma/ImageServer'>NAIP</a>"
+            />           
+          </Map>
+        </div>
       );
     }
 
