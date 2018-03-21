@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import MapView from './MapView';
 import ViewBar from './ViewBar';
-import WebFont from 'webfontloader';
 import './App.css';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-    WebFont.load({
-      google: {
-        families: ['Faster One:400','Open Sans:300,400,700', 'sans-serif']
-      }
-    });
+
     this.handleItemClick = this.handleItemClick.bind(this);
     this.state = {"layers":[]};
   }
