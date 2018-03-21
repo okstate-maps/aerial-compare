@@ -66,15 +66,16 @@ table {
 .App-header {
   background-color: #222;
   /*height: 4vh; grid*/
-  line-height: 1.5em;
   color: #FF6600;
   font-family: "Faster One", "sans-serif";
+  line-height: 1.5em;
 }
 
 @media (max-width: 850px) {
 
   .App-header {
     font-size:2em;
+    line-height: 1em;
   }
 }
 

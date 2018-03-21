@@ -1,10 +1,10 @@
 li.item {
 	width: 20vw;
     /*height: 25vh;*/
-    min-height: 120px;
+    min-height: 100px;
     max-height: 230px;
     height:15vh;
-    min-width: 120px;
+    min-width: 100px;
     margin: 10px;
     display: inline-block;
     background-position: center;
@@ -16,7 +16,7 @@ li.item span {
 	position: relative;
 	top:30%;
 	text-shadow: black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.2em;
-	max-width: 80px;
+
 	font-size: calc(16px + 1.45vw);
 
 	-webkit-user-select: none;  
