@@ -1,9 +1,9 @@
 .ViewBar-container {
-	height:30vh;
-	min-height: 100px;
+	/*height:30vh;  grid */
+	/*min-height: 100px; grid */
 	background-color:#FF6600;
-	width:100%;
-	position: fixed;
+	/*width:100%;*/
+	/*position: fixed;*/
 	overflow: auto;
 	overflow-y: hidden;
 	white-space: nowrap;

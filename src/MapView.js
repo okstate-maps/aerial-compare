@@ -37,6 +37,11 @@ class MapView extends Component {
     }
   }
   
+  componentWillMount() {
+    console.log("componentWillMount");
+    //this.unsyncMaps(this.leafletElement);
+  }  
+
   componentWillUnmount() {
     console.log("componentWillUnmount");
     //this.unsyncMaps(this.leafletElement);
@@ -93,6 +98,7 @@ class MapView extends Component {
 
   componentDidMount(prevProps, prevState){
     console.log("componentDidMount");
+    this.invalidateMapSizes();
   }
 
   onViewportChanged(viewport) { 
@@ -127,7 +133,7 @@ class MapView extends Component {
     if (filtered_layers.length === 0){
 
       return (
-        <div id='maps'>
+        
           <Map onViewportChanged={that.onViewportChanged} ref='map0' className='map0' viewport={that.viewport}>
            {/*<TileLayer
                   attribution='&copy; <a href="http://mapbox.com">Mapbox</a>'
@@ -139,15 +145,13 @@ class MapView extends Component {
               attribution="<a href='https://gis.apfo.usda.gov/arcgis/rest/services/NAIP/Oklahoma/ImageServer'>NAIP</a>"
             />           
           </Map>
-        </div>
+
       );
     }
 
     else if (filtered_layers.length >= 1){
-      return (
-        <div id='maps'>
-
-        {filtered_layers.map(function(layer, index) {
+      
+      return filtered_layers.map(function(layer, index) {
           let Layer = layer_components[layer.type];
           return <Map ref={layer.id} 
                  onViewportChanged={that.onViewportChanged}
@@ -163,9 +167,8 @@ class MapView extends Component {
               </Control>
             </Map>
           })
-        }
-        </div>
-      );
+        
+      
     }
   }
 }

@@ -10,7 +10,7 @@ class App extends Component {
     super(props);
     WebFont.load({
       google: {
-        families: ['Open Sans:300,400,700', 'sans-serif']
+        families: ['Faster One:400','Open Sans:300,400,700', 'sans-serif']
       }
     });
     this.handleItemClick = this.handleItemClick.bind(this);
@@ -48,9 +48,11 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          Stillwater Aerials
+          Stillwater from the Air
         </header>
-        <MapView layers={this.state.layers} />
+        <div id='maps'>
+          <MapView layers={this.state.layers} />
+        </div>
         <ViewBar onItemClick={this.handleItemClick} />
       </div>
     );
