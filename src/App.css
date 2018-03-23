@@ -58,7 +58,6 @@ table {
   text-align: center;
   min-height: 100%;
   height: 100%;
-  /* Grid stuff*/
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -97,7 +96,6 @@ table {
 #maps{
   flex-grow: 1;
   position: relative;
-  /*height: calc(100% - 250px);*/
 }
 
 #maps > div {

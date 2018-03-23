@@ -20,8 +20,8 @@ class ViewBar extends Component {
     const items = LayersInfo;
     return (
       <footer className='ViewBar-container bottom'>
-        <ul>
-            {items.map((item) => <Item 
+        <div className='ViewBar-scroll left'></div>
+         {items.map((item) => <Item 
               key={item.id} 
               type={item.type}
               id={item.id}
@@ -30,7 +30,8 @@ class ViewBar extends Component {
               display_name={item.display_name} 
               onItemClick={this.handleItemClick}
             />)}
-        </ul>
+      
+        <div className='ViewBar-scroll right'></div>
       </footer>
     );
   }

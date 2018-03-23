@@ -1,38 +1,47 @@
-li.item {
-	width: 20vw;
+div.item {
+	/*width: 20vw;*/
     /*height: 25vh;*/
-    min-height: 100px;
+    min-height: 75px;
     max-height: 230px;
     height:15vh;
-    min-width: 100px;
-    margin: 10px;
-    display: inline-block;
+    flex: 1 0 auto;
+    min-width: 15vw;
+    max-width: 300px;
+    margin: 15px 10px;
+    padding-right: 15px;
+    padding-left: 15px;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
+    cursor: pointer;
+    display:inline-flex;
+  	justify-content: center;
+  	align-items: center;
 }
 
-li.item span {
+div.item .textfit {
 	color: white;
-	position: relative;
-	top:30%;
+	width:100%;
+	flex: none;
+	/*position: relative;*/
+	white-space: normal;
+	/*top:30%;*/
 	text-shadow: black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.2em;
-
-	font-size: calc(16px + 1.45vw);
-
+	/*font-size: calc(16px + 1.45vw);
+*/
 	-webkit-user-select: none;  
   	-moz-user-select: none;     
   	-ms-user-select: none;      
   	user-select: none;          
 }
 
-li.item.on {
+div.item.on {
 	box-shadow: 0px 0px 0px 6px #333333;
 	transition-property: box-shadow;
 	transition-duration: 0.25s;
 	transition-timing-function: linear;
 }
 
-li.item.off {
+div.item.off {
 	box-shadow: 0px 0px 0px 0px #333333;
 	transition-property: box-shadow;
 	transition-duration: 0.25s;
@@ -41,7 +50,7 @@ li.item.off {
 
 /*@media (max-height: 650px) {
 
-	li.item span {
+	div.item span {
 		font-size:2em;
 	}
 }

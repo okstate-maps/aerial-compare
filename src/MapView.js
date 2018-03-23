@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Control from 'react-leaflet-control';
 import {Map, TileLayer, WMSTileLayer} from 'react-leaflet';
 import EsriTiledMapLayer from './EsriTiledMapLayer';
+import { Textfit } from 'react-textfit';
 import 'leaflet.sync';
 import './MapView.css';
 
@@ -21,14 +22,11 @@ class MapView extends Component {
     this.invalidateMapSizes = this.invalidateMapSizes.bind(this);
     this.unsyncMaps = this.unsyncMaps.bind(this);
     this.moveend = this.moveend.bind(this);
-    this.diff = this.diff.bind(this);
     this.onViewportChanged = this.onViewportChanged.bind(this);
   }
 
   moveend(e) {
-    //var new_center = e.target.getCenter();
-    //new_center["zoom"] = e.target.getZoom();
-    //this.setState(new_center);
+
   }
 
   invalidateMapSizes() {
@@ -39,16 +37,10 @@ class MapView extends Component {
   
   componentWillMount() {
     console.log("componentWillMount");
-    //this.unsyncMaps(this.leafletElement);
   }  
 
   componentWillUnmount() {
     console.log("componentWillUnmount");
-    //this.unsyncMaps(this.leafletElement);
-  }
-
-  diff(a, b) {
-    return a.filter(function(i) {return b.indexOf(i) < 0;})
   }
 
   componentWillReceiveProps(nextProps) {
@@ -132,20 +124,10 @@ class MapView extends Component {
 
     if (filtered_layers.length === 0){
 
-      return (
-        
-          <Map onViewportChanged={that.onViewportChanged} ref='map0' className='map0' viewport={that.viewport}>
-           {/*<TileLayer
-                  attribution='&copy; <a href="http://mapbox.com">Mapbox</a>'
-                  url='https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia3JkeWtlIiwiYSI6Ik15RGcwZGMifQ.IR_NpAqXL1ro8mFeTIdifg'
-                />*/}
-            <WMSTileLayer
-              url="https://gis.apfo.usda.gov/arcgis/services/NAIP/Oklahoma/ImageServer/WMSServer"
-              layers="0"
-              attribution="<a href='https://gis.apfo.usda.gov/arcgis/rest/services/NAIP/Oklahoma/ImageServer'>NAIP</a>"
-            />           
-          </Map>
-
+      return (<div className='no-maps'>
+          <Textfit className='flexfit' mode="multi"> Click or tap on one of the years at the bottom of the screen. You
+            can select up to 6 at a time </Textfit>
+        </div>
       );
     }
 
@@ -163,7 +145,7 @@ class MapView extends Component {
                   url={layer.url}
                   opacity={layer.opacity} />
               <Control position="topright">
-                <span className="map-title">{layer.display_name}</span>
+                <div className={layer.display_name.length >= 40 ? "map-title long-title" : "map-title"}>{layer.display_name}</div>
               </Control>
             </Map>
           })

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Textfit } from 'react-textfit';
 import './Item.css';
 
 class Item extends Component {
@@ -27,12 +28,14 @@ class Item extends Component {
 
   render() {
     return (
-      <li className={this.state.isToggledOn ? 'item on' : 'item off'} 
+      <div className={this.state.isToggledOn ? 'item on' : 'item off'} 
           onClick={this.onClick} 
           style={{backgroundImage: "url('assets/images/thumb_" + this.props.id + ".JPG')"}}
-          id={this.props.id}> 
-        <span>{this.props.display_name}</span>
-      </li>
+          id={this.props.id}>
+        <Textfit className="textfit" mode={this.props.display_name.length >= 40 ? 'multi' : 'single'} min={18} max={60}>
+          {this.props.display_name}
+        </Textfit>
+      </div>
     );
   }
 }

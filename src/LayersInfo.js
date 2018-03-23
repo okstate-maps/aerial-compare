@@ -96,9 +96,9 @@ module.exports = [
       // {
       //   "type": "EsriTiledMapLayer",
       //   "id": "Map_Stillwater_1959",
-      //   "display_name": "1959",
+      //   "display_name": "Map of Stillwater, 1959",
       //   "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/Map_Stillwater_1959/MapServer"
-      // },
+      // }
       //{
       //   "type": "TileLayer",
       //   "id": "osuOrange",
