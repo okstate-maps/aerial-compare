@@ -1,6 +1,6 @@
 {
   "name": "stillwater-aerials-react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "homepage": "https://okstate-maps.github.io/aerial-compare",
   "dependencies": {
@@ -15,6 +15,7 @@
     "react-leaflet": "^1.8.0",
     "react-leaflet-control": "^1.4.1",
     "react-scripts": "1.1.0",
+    "react-textfit": "^1.1.0",
     "webfontloader": "^1.6.28"
   },
   "scripts": {
