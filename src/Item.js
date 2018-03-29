@@ -7,11 +7,27 @@ class Item extends Component {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
+    this.getNumberOfLayers = this.getNumberOfLayers.bind(this);
     this.state = {isToggledOn: false,
                   opacity: 1.0};
+    
   }
  
+  getNumberOfLayers(e){
+    return document.querySelectorAll("footer .item.on").length;
+    //console.log(currentlyOn);
+    //return this.state.isToggledOn ? 'item on' : 'item off';
+  }
+
   onClick(e) {
+    let numLyrs = this.getNumberOfLayers();
+    if (numLyrs === 8) {
+      if (!this.state.isToggledOn){
+        window.vex.dialog.alert("Only 8 layers can be selected at once. Please deselect some in order to select new ones.");
+        return
+      }
+    }
+
     this.setState(prevState => ({
       isToggledOn: !prevState.isToggledOn,
       opacity: 1.0

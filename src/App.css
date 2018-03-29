@@ -71,11 +71,23 @@ table {
   line-height: 1.5em;
 }
 
-@media (max-width: 850px) {
+
+@media (max-width: 461px) {
 
   .App-header {
+    line-height: 1
+  }
+}
+@media (max-width: 584px) {
+  .App-header {
     font-size:2em;
-    line-height: 1em;
+  }
+}
+
+@media (min-width: 585px) and (max-width: 850px) {
+
+  .App-header {
+    font-size:2.5em;
   }
 }
 

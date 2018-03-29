@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Control from 'react-leaflet-control';
 import {Map, TileLayer, WMSTileLayer} from 'react-leaflet';
 import EsriTiledMapLayer from './EsriTiledMapLayer';
-import { Textfit } from 'react-textfit';
 import 'leaflet.sync';
 import './MapView.css';
 
@@ -13,6 +12,8 @@ class MapView extends Component {
   constructor(props, context) {
     super(props)
     this.arcgis_service_url = 'https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/{{id}}/MapServer';
+    this.mapboxToken = "pk.eyJ1Ijoia3JkeWtlIiwiYSI6Ik15RGcwZGMifQ.IR_NpAqXL1ro8mFeTIdifg";
+
     const DEFAULT_VIEWPORT = {
       center: [36.1156, -97.0584],
       zoom: 13
@@ -95,7 +96,7 @@ class MapView extends Component {
 
   onViewportChanged(viewport) { 
     // The viewport got changed by the user, keep track in state
-    console.log("viewport changed");
+    //console.log("viewport changed");
 
     //putting viewport into state results in (near) infinite loop of componentdidupdates
     //probably because L.sync is not react-ified
@@ -113,6 +114,7 @@ class MapView extends Component {
       "TileLayer": TileLayer
     }
     const that = this;
+    const labelLayerUrl = 'https://api.mapbox.com/styles/v1/krdyke/cjf9wgvwg0zlh2rmo4jx9jcec/tiles/256/{z}/{x}/{y}?access_token=' + this.mapboxToken;
     var filtered_layers = layers.filter(function(lyr){
       if (lyr.isToggledOn){
         return true;
@@ -125,8 +127,8 @@ class MapView extends Component {
     if (filtered_layers.length === 0){
 
       return (<div className='no-maps'>
-          <Textfit className='flexfit' mode="multi"> Click or tap on one of the years at the bottom of the screen. You
-            can select up to 6 at a time </Textfit>
+           <div>Click or tap on one of the years at the bottom of the screen. You
+            can select up to 8 at a time.</div>
         </div>
       );
     }
@@ -135,11 +137,16 @@ class MapView extends Component {
       
       return filtered_layers.map(function(layer, index) {
           let Layer = layer_components[layer.type];
+
           return <Map ref={layer.id} 
+                 minZoom={11}
+                 maxZoom={19}
                  onViewportChanged={that.onViewportChanged}
                  className ={'map'+ filtered_layers.length + ' p' + index}  
                  key={layer.id} 
                 viewport={that.viewport}>
+                <TileLayer url={labelLayerUrl}
+                  zIndex={10000} />
               <Layer 
                   key={layer.id} 
                   url={layer.url}

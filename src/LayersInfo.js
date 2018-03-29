@@ -7,7 +7,7 @@ Each layer has the following required values:
 		See Leaflet documentation for others. Esri Leaflet has more also, but they need porting to leaflet-react.
 	id {string}: A unique identifier used to keep React happy.
 	display_name {string}: What you want to be displayed over the layer's selection tile.
-	url {string}: The url to 
+	url {string}: The url to the service
 
 */
 
@@ -92,6 +92,13 @@ module.exports = [
         "id": "osu1996",
         "display_name": "1996 (OSU)",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/osu1996/MapServer"
+      },
+      {
+        "sortVal": 1999,
+        "type": "EsriTiledMapLayer",
+        "id": "stw1999_2",
+        "display_name": "1999",
+        "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/stw1999_2/MapServer"
       }
       // {
       //   "type": "EsriTiledMapLayer",

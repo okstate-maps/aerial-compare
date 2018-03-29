@@ -2,16 +2,24 @@
 	width:100%;
 	height:100%;
 	display:flex;
-/*  	justify-content: center;*/
-/*  	align-items: stretch;*/
+	/*justify-content: center;*/
+	/*align-items: stretch;*/
 }
 
-.no-maps .flexfit {
-	flex: 1 1 auto;
+.no-maps div {
+	position: absolute;
+	width:50%;
+	left:25%;
+	top: 20%;
+	/*flex: 1 1 auto;*/
 	padding:10px;
+	-webkit-user-select: none;  
+  	-moz-user-select: none;     
+  	-ms-user-select: none;      
+  	user-select: none;  
 }
 #maps {
-	background-color: #FF9900;
+	background-color: #FF6600;
 }
 
 .map0 {  
@@ -19,7 +27,7 @@
 }
 
 .map-title {
-	color: white;
+	color: #FF6600;
 	font-family: 'Open Sans', sans-serif;
 	position: relative;
 	text-shadow: black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em;
@@ -34,6 +42,12 @@
 @media (max-height: 650px),
 		 (max-width: 650px) {
 
+	.no-maps div {
+		width:90%;
+		top:5%;
+		left:0;
+		font-size: 1.5em;
+	}
 	.map-title {
 		font-size:2em;
 	}
@@ -46,7 +60,7 @@
 		(min-width: 651px) and (max-width: 850px)
  {
 
-	.map-title {
+	.map-title,.no-maps div {
 		font-size:2.5em;
 	}
 	.map-title.long-title {
@@ -57,7 +71,7 @@
 @media (min-height: 851px) and (max-height: 5200px),
 		(min-width: 851px) and (max-width: 5200px) {
 
-	.map-title {
+	.map-title,.no-maps div {
 		font-size:3em;
 	}
 	.map-title.long-title {
@@ -180,6 +194,13 @@
 	right: 0;
 }
 
+/*
+	6 maps
+
+	map map map
+	map map map
+*/
+
 .map6 {
 	width: 33%;
 	height: 49.5%;
@@ -210,4 +231,94 @@
 	right:0;
 }
 
-/*}*/
+
+/*
+7 maps
+
+map map map map
+  map map map
+
+*/
+
+.map7 {
+	width:24.5%;
+	height: 49.5%;
+}
+
+.map7.p0{	
+	top:0;
+	left:0;
+}
+.map7.p1{
+	top:0;
+	left: 25.15%;	
+}
+.map7.p2{	
+	top:0;	
+	left:50.3%;
+}
+.map7.p3{
+	top:0;	
+	right:0;
+}
+.map7.p4{
+	width:33%;
+	bottom:0;
+	left: 0;	
+}
+.map7.p5{	
+	width:33%;
+	bottom:0;	
+	left: 33.5%;
+}
+.map7.p6{	
+	width:33%;
+	bottom:0;
+	left: 67%;	
+}
+
+
+/*
+8 Maps, 4 x 2
+
+map map map map
+map map map map
+
+*/
+.map8 {
+	width: 24.5%;
+	height: 49.5%;
+}
+
+.map8.p0{	
+	top:0;
+	left:0;
+}
+.map8.p1{
+	top:0;
+	left: 25.15%;	
+}
+.map8.p2{	
+	top:0;	
+	left:50.3%;
+}
+.map8.p3{
+	top:0;	
+	right:0;
+}
+.map8.p4{	
+	bottom:0;
+	left: 0;	
+}
+.map8.p5{	
+	bottom:0;	
+	left: 25.15%;
+}
+.map8.p6{	
+	bottom:0;
+	left: 50.3%;	
+}
+.map8.p7{	
+	bottom:0;	
+	right:0;
+}

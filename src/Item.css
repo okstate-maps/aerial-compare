@@ -5,7 +5,7 @@ div.item {
     max-height: 230px;
     height:15vh;
     flex: 1 0 auto;
-    min-width: 15vw;
+    min-width: 8vw;
     max-width: 300px;
     margin: 15px 10px;
     padding-right: 15px;
@@ -19,7 +19,7 @@ div.item {
 }
 
 div.item .textfit {
-	color: white;
+	color: #FF9900;
 	width:100%;
 	flex: none;
 	/*position: relative;*/

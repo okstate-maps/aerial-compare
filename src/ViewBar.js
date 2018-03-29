@@ -8,12 +8,15 @@ class ViewBar extends Component {
   constructor(props) {
     super(props);
     this.handleItemClick = this.handleItemClick.bind(this);
+    this.sortItems = this.sortItems.bind(this);
   }
 
   handleItemClick(data) {
-   // console.log("handleItemClick in ViewBar")
-   // console.log(data)
     this.props.onItemClick(data);
+  }
+
+  sortItems(items) {
+
   }
 
   render() {
@@ -29,6 +32,7 @@ class ViewBar extends Component {
               layers={item.layers}
               display_name={item.display_name} 
               onItemClick={this.handleItemClick}
+
             />)}
       
         <div className='ViewBar-scroll right'></div>
