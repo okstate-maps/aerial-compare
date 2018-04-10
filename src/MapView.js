@@ -11,7 +11,6 @@ class MapView extends Component {
   
   constructor(props, context) {
     super(props)
-    this.arcgis_service_url = 'https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/{{id}}/MapServer';
     this.mapboxToken = "pk.eyJ1Ijoia3JkeWtlIiwiYSI6Ik15RGcwZGMifQ.IR_NpAqXL1ro8mFeTIdifg";
 
     const DEFAULT_VIEWPORT = {
@@ -37,17 +36,16 @@ class MapView extends Component {
   }
   
   componentWillMount() {
-    console.log("componentWillMount");
+    //console.log("MapView WillMount");
   }  
 
   componentWillUnmount() {
-    console.log("componentWillUnmount");
+    //console.log("MapView WillUnmount");
   }
 
   componentWillReceiveProps(nextProps) {
-    var id;
-    for (var i in nextProps.layers){
-      id = nextProps.layers[i].id;
+    for (let i in nextProps.layers){
+      let id = nextProps.layers[i].id;
       if (this.refs[id] && !nextProps.layers[i].isToggledOn){
         this.unsyncMaps(id);
       }
@@ -55,8 +53,7 @@ class MapView extends Component {
   }
 
   unsyncMaps(ref_id) {
-    console.log("unsyncMaps");
-    for (var i in this.refs){
+    for (let i in this.refs){
       if (i !== ref_id && this.refs[ref_id]){
         this.refs[ref_id].leafletElement.unsync(this.refs[i].leafletElement);
         this.refs[i].leafletElement.unsync(this.refs[ref_id].leafletElement);
@@ -65,12 +62,10 @@ class MapView extends Component {
   }
 
   syncMaps() {
-    for (var i in this.refs){
-      for (var j in this.refs){
+    for (let i in this.refs){
+      for (let j in this.refs){
         if (i !== j){
           if (this.refs[i] && !this.refs[i].leafletElement.isSynced(this.refs[j].leafletElement)){
-            //this.refs[i].leafletElement.setView(this.state.viewport.center, this.state.viewport.zoom)
-            console.log("do some syncing");
             this.refs[i].leafletElement.sync(this.refs[j].leafletElement, {syncCursor: true});           
           }
         }
@@ -79,18 +74,23 @@ class MapView extends Component {
   }
 
   componentWillUpdate(){
-    console.log("componentWillUpdate");
-
+    console.log("MapView WillUpdate");
   }
 
   componentDidUpdate(prevProps, prevState){
-    console.log("componentDidUpdate");
+    console.log("MapView DidUpdate");
+
+    if (prevProps.geocodeResult !== this.props.geocodeResult) {
+      let randomMap = Object.entries(this.refs)[0][1];
+      let bbox = this.props.geocodeResult.geocode.bbox;
+      randomMap.leafletElement.fitBounds(bbox);
+    }
     this.syncMaps();
     this.invalidateMapSizes();
   }
 
   componentDidMount(prevProps, prevState){
-    console.log("componentDidMount");
+    //console.log("MapView DidMount");
     this.invalidateMapSizes();
   }
 
@@ -115,48 +115,56 @@ class MapView extends Component {
     }
     const that = this;
     const labelLayerUrl = 'https://api.mapbox.com/styles/v1/krdyke/cjf9wgvwg0zlh2rmo4jx9jcec/tiles/256/{z}/{x}/{y}?access_token=' + this.mapboxToken;
-    var filtered_layers = layers.filter(function(lyr){
+    var filtered_layers = layers.filter(lyr => {
       if (lyr.isToggledOn){
         return true;
       }
       else {
         return false;
       }
-    })
+    });
 
     if (filtered_layers.length === 0){
 
       return (<div className='no-maps'>
-           <div>Click or tap on one of the years at the bottom of the screen. You
-            can select up to 8 at a time.</div>
-        </div>
-      );
+                 <p>Welcome to Stillwater from the Air!</p>
+                 <p>
+                  With this website you can see how Stillwater and Oklahoma State University 
+                  have changed over the years.
+                 </p>
+                 <p>
+                  To get started, click or tap on one of the years at the bottom of the screen. You
+                  can select up to 8 at a time.
+                  </p>
+               </div>
+              );
     }
 
     else if (filtered_layers.length >= 1){
       
-      return filtered_layers.map(function(layer, index) {
+      let maps = filtered_layers.map( (layer, index) => {
+          
           let Layer = layer_components[layer.type];
 
           return <Map ref={layer.id} 
-                 minZoom={11}
-                 maxZoom={19}
-                 onViewportChanged={that.onViewportChanged}
-                 className ={'map'+ filtered_layers.length + ' p' + index}  
-                 key={layer.id} 
-                viewport={that.viewport}>
-                <TileLayer url={labelLayerUrl}
-                  zIndex={10000} />
-              <Layer 
-                  key={layer.id} 
-                  url={layer.url}
-                  opacity={layer.opacity} />
-              <Control position="topright">
-                <div className={layer.display_name.length >= 40 ? "map-title long-title" : "map-title"}>{layer.display_name}</div>
-              </Control>
-            </Map>
-          })
-        
+                   minZoom={11}
+                   maxZoom={18}
+                   onViewportChanged={that.onViewportChanged}
+                   className ={'map'+ filtered_layers.length + ' p' + index}  
+                   key={layer.id} 
+                   viewport={that.viewport}>
+                    <TileLayer url={labelLayerUrl}
+                      zIndex={10000} />
+                    <Layer 
+                        key={layer.id} 
+                        url={layer.url}
+                        opacity={layer.opacity} />
+                    <Control position="topright">
+                      <div className={layer.display_name.length >= 40 ? "map-title long-title" : "map-title"}>{layer.display_name}</div>
+                    </Control>
+                </Map>
+          });
+        return maps;
       
     }
   }

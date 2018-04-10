@@ -12,14 +12,6 @@ Each layer has the following required values:
 */
 
 module.exports = [
-      {
-        "sortVal": 0,    
-        "type": "WMSTileLayer", 
-        "id": "naip2017",
-        "layers": "0",
-        "display_name": "2017",
-        "url": "https://gis.apfo.usda.gov/arcgis/services/NAIP/Oklahoma/ImageServer/WMSServer"
-      },
 
       {
         "sortVal": 1938,
@@ -99,6 +91,14 @@ module.exports = [
         "id": "stw1999_2",
         "display_name": "1999",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/stw1999_2/MapServer"
+      },
+      {
+        "sortVal": 2017,    
+        "type": "WMSTileLayer", 
+        "id": "naip2017",
+        "layers": "0",
+        "display_name": "2017",
+        "url": "https://gis.apfo.usda.gov/arcgis/services/NAIP/Oklahoma/ImageServer/WMSServer"
       }
       // {
       //   "type": "EsriTiledMapLayer",

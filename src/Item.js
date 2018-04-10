@@ -15,8 +15,6 @@ class Item extends Component {
  
   getNumberOfLayers(e){
     return document.querySelectorAll("footer .item.on").length;
-    //console.log(currentlyOn);
-    //return this.state.isToggledOn ? 'item on' : 'item off';
   }
 
   onClick(e) {
@@ -33,6 +31,7 @@ class Item extends Component {
       opacity: 1.0
     }));
     this.props.onItemClick({
+      "sortVal": this.props.sortVal,
       "opacity": 1.0,
       "isToggledOn": !this.state.isToggledOn,
       "id": this.props.id,
@@ -48,9 +47,9 @@ class Item extends Component {
           onClick={this.onClick} 
           style={{backgroundImage: "url('assets/images/thumb_" + this.props.id + ".JPG')"}}
           id={this.props.id}>
-        <Textfit className="textfit" mode={this.props.display_name.length >= 40 ? 'multi' : 'single'} min={18} max={60}>
+        <div>
           {this.props.display_name}
-        </Textfit>
+        </div>
       </div>
     );
   }

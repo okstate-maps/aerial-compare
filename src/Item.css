@@ -18,10 +18,16 @@ div.item {
   	align-items: center;
 }
 
-div.item .textfit {
+
+div.item:hover {
+	box-shadow: 
+}
+
+div.item .textfit, div.item div {
 	color: #FF9900;
 	width:100%;
 	flex: none;
+	font-size: 2.2em;
 	/*position: relative;*/
 	white-space: normal;
 	/*top:30%;*/
