@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Textfit } from 'react-textfit';
+//import { Textfit } from 'react-textfit';
 import './Item.css';
 
 class Item extends Component {

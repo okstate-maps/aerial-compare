@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import sortOn from 'sort-on';
+//import sortOn from 'sort-on';
 //import FlipMove from 'react-flip-move';
 import Item from './Item';
 import ScrollButton from './ScrollButton';
@@ -12,7 +12,7 @@ class ViewBar extends Component {
     super(props);
     this.handleItemClick = this.handleItemClick.bind(this);
     this.handleScrollButtonClick = this.handleScrollButtonClick.bind(this);
-    this.sortItems = this.sortItems.bind(this);
+    //this.sortItems = this.sortItems.bind(this);
     this.scrollTo = this.scrollTo.bind(this);
     this.onScroll = this.onScroll.bind(this);
     this.easeInOutQuad = this.easeInOutQuad.bind(this);
@@ -52,19 +52,21 @@ class ViewBar extends Component {
     //for the initial app load, set state using LayersInfo
     console.log("ViewBar mounted");
     let layers = LayersInfo.map(item => ({...item, isToggledOn: false}));
-    layers = sortOn(layers, "-sortVal");
+    layers = layers.sort( (a, b) => {
+      return b.sortVal - a.sortVal 
+    })
     this.setState({"layers": layers});
   }
 
-  sortItems(layers) {
-    layers = sortOn(layers, "isToggledOn");
-    let toggledOnSubarray = layers.filter(lyr => lyr.isToggledOn);
-    console.log(toggledOnSubarray);
-    let offSubarray = layers.filter(lyr => !lyr.isToggledOn);
-    console.log(offSubarray);
-    offSubarray = sortOn(offSubarray, "-sortVal");
-    return toggledOnSubarray.concat(offSubarray);
-  }
+  // sortItems(layers) {
+  //   layers = layers.sort( (a, b) =>, "isToggledOn");
+  //   let toggledOnSubarray = layers.filter(lyr => lyr.isToggledOn);
+  //   console.log(toggledOnSubarray);
+  //   let offSubarray = layers.filter(lyr => !lyr.isToggledOn);
+  //   console.log(offSubarray);
+  //   offSubarray = sortOn(offSubarray, "-sortVal");
+  //   return toggledOnSubarray.concat(offSubarray);
+  // }
 
   onScroll(e){
     this.setState({"scrollLeft": e.nativeEvent.target.scrollLeft});
