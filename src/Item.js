@@ -37,6 +37,7 @@ class Item extends Component {
       "id": this.props.id,
       "url": this.props.url,
       "type": this.props.type,
+      "maxZoom": this.props.maxZoom,
       "display_name": this.props.display_name
     });
   }

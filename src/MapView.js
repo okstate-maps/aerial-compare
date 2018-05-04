@@ -18,6 +18,7 @@ class MapView extends Component {
       zoom: 13
     }
     this.viewport = DEFAULT_VIEWPORT;
+    //this.props.mapCenter(this.viewport.center);
     this.syncMaps = this.syncMaps.bind(this);
     this.invalidateMapSizes = this.invalidateMapSizes.bind(this);
     this.unsyncMaps = this.unsyncMaps.bind(this);
@@ -102,6 +103,7 @@ class MapView extends Component {
     //probably because L.sync is not react-ified
     //so just use good ole generic this.viewport instead
     this.viewport = viewport;
+    //this.props.mapCenter(viewport.center);
   }
 
   render() {
@@ -133,8 +135,8 @@ class MapView extends Component {
                   have changed over the years.
                  </p>
                  <p>
-                  To get started, click or tap on one of the years at the bottom of the screen. You
-                  can select up to 8 at a time.
+                  Click or tap on one of the years at the bottom of the screen. You
+                  can select up to 8 at a time. Click or tap it again to turn it off.
                   </p>
                </div>
               );
@@ -148,7 +150,7 @@ class MapView extends Component {
 
           return <Map ref={layer.id} 
                    minZoom={11}
-                   maxZoom={18}
+                   maxZoom={layer.maxZoom}
                    onViewportChanged={that.onViewportChanged}
                    className ={'map'+ filtered_layers.length + ' p' + index}  
                    key={layer.id} 
@@ -158,6 +160,7 @@ class MapView extends Component {
                     <Layer 
                         key={layer.id} 
                         url={layer.url}
+                        maxZoom={layer.maxZoom}
                         opacity={layer.opacity} />
                     <Control position="topright">
                       <div className={layer.display_name.length >= 40 ? "map-title long-title" : "map-title"}>{layer.display_name}</div>

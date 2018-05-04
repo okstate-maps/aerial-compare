@@ -12,6 +12,7 @@ class App extends Component {
     super(props);
     this.handleItemClick = this.handleItemClick.bind(this);
     this.transmitGeocode = this.transmitGeocode.bind(this);
+    this.mapCenter = this.mapCenter.bind(this);
     this.state = {"layers":[], "numberOfLayersOn": 0, "geocodeResult": {}};
     //alert alert hack ahead
     window.vex = Vex;
@@ -21,6 +22,10 @@ class App extends Component {
 
   transmitGeocode(geocode) {
     this.setState({"geocode": geocode});
+  }
+
+  mapCenter(center){
+    this.setState({"mapCenter": center});
   }
 
   handleItemClick(data) {
@@ -61,7 +66,8 @@ class App extends Component {
         </header>
         <div id='maps'>
           <MapView layers={this.state.layers}
-                   geocodeResult={this.state.geocode}/>  
+                   geocodeResult={this.state.geocode}
+                   mapCenter={this.mapCenter}/>  
         </div>
         {this.state.numberOfLayersOn > 0 && <Geocoder transmitGeocode={this.transmitGeocode} />}
         <ViewBar onItemClick={this.handleItemClick}

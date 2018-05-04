@@ -118,7 +118,8 @@ class ViewBar extends Component {
                 url={item.url}
                 layers={item.layers}
                 sortVal={item.sortVal}
-                display_name={item.display_name} 
+                display_name={item.display_name}
+                maxZoom={item.maxZoom ? item.maxZoom : 20}
                 onItemClick={this.handleItemClick}
               />)}
           {/*</FlipMove>*/}
