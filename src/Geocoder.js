@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import L from 'leaflet';
+import Config from './Config';
 import 'leaflet-control-geocoder';
 import './Geocoder/images/geocoder.png';
 import './Geocoder/images/throbber.gif';
@@ -11,9 +12,7 @@ class Geocoder extends Component {
 
   constructor(props) {
     super(props);
-    
-    this.mapboxToken = "pk.eyJ1Ijoia3JkeWtlIiwiYSI6Ik15RGcwZGMifQ.IR_NpAqXL1ro8mFeTIdifg";
-    this.onClick = this.onClick.bind(this);
+    this.mapboxToken = Config.mapboxToken;
   }
  
   componentDidMount(){
@@ -43,10 +42,6 @@ class Geocoder extends Component {
 
   transmitGeocode(geocode){
     this.props.transmitGeocode(geocode);
-  }
-
-  onClick(e) {
-    this.props.onClick(this.props.direction);
   }
 
   render() {

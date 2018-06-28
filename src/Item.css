@@ -1,6 +1,4 @@
 div.item {
-	/*width: 20vw;*/
-    /*height: 25vh;*/
     min-height: 75px;
     max-height: 230px;
     height:15vh;
@@ -18,7 +16,6 @@ div.item {
   	align-items: center;
 }
 
-
 div.item:hover {
 	box-shadow: 
 }
@@ -28,12 +25,8 @@ div.item .textfit, div.item div {
 	width:100%;
 	flex: none;
 	font-size: 2.2em;
-	/*position: relative;*/
 	white-space: normal;
-	/*top:30%;*/
 	text-shadow: black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.2em;
-	/*font-size: calc(16px + 1.45vw);
-*/
 	-webkit-user-select: none;  
   	-moz-user-select: none;     
   	-ms-user-select: none;      
@@ -53,24 +46,3 @@ div.item.off {
 	transition-duration: 0.25s;
 	transition-timing-function: linear;
 }
-
-/*@media (max-height: 650px) {
-
-	div.item span {
-		font-size:2em;
-	}
-}
-
-@media (min-height: 650px) and (max-height: 850px) {
-
-	li.item span {
-		font-size:5vw;
-	}
-}
-
-@media (min-height: 851px) and (max-height: 5200px) {
-
-	li.item span {
-		font-size:5vw;
-	}
-}*/

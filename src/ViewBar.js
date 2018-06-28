@@ -34,23 +34,23 @@ class ViewBar extends Component {
   }
 
   handleScrollButtonClick(scrollDirection) {
-    console.log(scrollDirection);
+    //console.log(scrollDirection);
     this.scrollTo(scrollDirection, 350);
 
   }
 
   componentWillUpdate(){
-    console.log("ViewBar WillUpdate");
+    //console.log("ViewBar WillUpdate");
 
   }
 
   componentDidUpdate(prevProps, prevState){
-    console.log("ViewBar DidUpdate");
+    //console.log("ViewBar DidUpdate");
   }
 
   componentWillMount(prevProps, prevState){
     //for the initial app load, set state using LayersInfo
-    console.log("ViewBar mounted");
+    //console.log("ViewBar mounted");
     let layers = LayersInfo.map(item => ({...item, isToggledOn: false}));
     layers = layers.sort( (a, b) => {
       return b.sortVal - a.sortVal 
@@ -71,6 +71,7 @@ class ViewBar extends Component {
   onScroll(e){
     this.setState({"scrollLeft": e.nativeEvent.target.scrollLeft});
   }
+
   scrollTo(direction, duration) {
     let elem  = document.getElementById("viewbarItems"),
         start = elem.scrollLeft,
@@ -112,6 +113,7 @@ class ViewBar extends Component {
          {/*<FlipMove onScroll={this.onScroll} scrollleft={this.state.scrollLeft} className='flip-move' duration={500} easing="ease-out" id="viewbarItems">*/}
          <div onScroll={this.onScroll} scrollleft={this.state.scrollLeft} className='flip-move' id="viewbarItems">
            {items.map(item => <Item 
+                numberOfLayersOn={this.props.numberOfLayersOn}
                 key={item.id} 
                 type={item.type}
                 id={item.id}
@@ -119,6 +121,7 @@ class ViewBar extends Component {
                 layers={item.layers}
                 sortVal={item.sortVal}
                 display_name={item.display_name}
+                thumbnail_file={item.thumbnail_file}
                 maxZoom={item.maxZoom ? item.maxZoom : 20}
                 onItemClick={this.handleItemClick}
               />)}

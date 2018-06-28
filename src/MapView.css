@@ -46,16 +46,12 @@
 
 @media (max-height: 500px) {
 	.no-maps p {
-
 		font-size: 1em;
 	}
-
-
 }
+
 @media (min-height: 501px) and (max-height: 850px) {
-
 	.no-maps p {
-
 		font-size: 1.5em;
 	}
 	.map-title {
@@ -67,7 +63,6 @@
 }
 
 @media (min-height: 851px) and (max-height: 950px) {
-
 	.map-title, .no-maps p {
 		font-size:2.5em;
 	}
@@ -77,7 +72,6 @@
 }
 
 @media (min-height: 951px) {
-
 	.map-title,.no-maps p {
 		font-size:3em;
 	}

@@ -91,14 +91,14 @@ table {
   }
 }
 
-@media (min-width: 851px) and (max-width: 1500px) {
+@media (min-width: 851px) and (max-width: 2500px) {
 
   .App-header {
     font-size:3em;
   }
 }
 
-@media (min-width: 1501px) {
+@media (min-width: 2501px) {
 
   .App-header {
     font-size:4em;

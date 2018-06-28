@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 //import { Textfit } from 'react-textfit';
+import Config from './Config';
 import './Item.css';
 
 class Item extends Component {
@@ -7,21 +8,16 @@ class Item extends Component {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
-    this.getNumberOfLayers = this.getNumberOfLayers.bind(this);
     this.state = {isToggledOn: false,
                   opacity: 1.0};
-    
   }
  
-  getNumberOfLayers(e){
-    return document.querySelectorAll("footer .item.on").length;
-  }
-
   onClick(e) {
-    let numLyrs = this.getNumberOfLayers();
+
+    let numLyrs = this.props.numberOfLayersOn;
     if (numLyrs === 8) {
       if (!this.state.isToggledOn){
-        window.vex.dialog.alert("Only 8 layers can be selected at once. Please deselect some in order to select new ones.");
+        window.vex.dialog.alert(Config.maxLayersWarning);
         return
       }
     }
@@ -35,8 +31,10 @@ class Item extends Component {
       "opacity": 1.0,
       "isToggledOn": !this.state.isToggledOn,
       "id": this.props.id,
+      "thumbnail_file": this.props.thumbnail_file,
       "url": this.props.url,
       "type": this.props.type,
+      "layers": this.props.layers,
       "maxZoom": this.props.maxZoom,
       "display_name": this.props.display_name
     });
@@ -46,7 +44,7 @@ class Item extends Component {
     return (
       <div className={this.state.isToggledOn ? 'item on' : 'item off'} 
           onClick={this.onClick} 
-          style={{backgroundImage: "url('assets/images/thumb_" + this.props.id + ".JPG')"}}
+          style={{backgroundImage: "url('assets/images/" + this.props.thumbnail_file + "')"}}
           id={this.props.id}>
         <div>
           {this.props.display_name}

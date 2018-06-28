@@ -19,6 +19,7 @@ module.exports = [
         "id": "stw1938",
         "display_name": "1938",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/stw1938/MapServer",
+        "thumbnail_file": "thumb_stw1938.JPG",
         "maxZoom": 19
       },
 
@@ -28,6 +29,7 @@ module.exports = [
         "id": "stw1949",
         "display_name": "1949",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/stw1949/MapServer",
+        "thumbnail_file": "thumb_stw1949.JPG",
         "maxZoom": 19
       },
 
@@ -37,6 +39,7 @@ module.exports = [
         "id": "stw1956_tiles",
         "display_name": "1956",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/stw1956_tiles/MapServer",
+        "thumbnail_file": "thumb_stw1938.JPG",
         "maxZoom": 19
       },
       {
@@ -45,6 +48,7 @@ module.exports = [
         "id": "stw1963",
         "display_name": "1963",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/stw1963/MapServer",
+        "thumbnail_file": "thumb_stw1963.JPG",
         "maxZoom": 19
       },
       {
@@ -53,6 +57,7 @@ module.exports = [
         "id": "stw1969_3",
         "display_name": "1969",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/stw1969_3/MapServer",
+        "thumbnail_file": "thumb_stw1969_3.JPG",
         "maxZoom": 19
       },
       {
@@ -61,6 +66,7 @@ module.exports = [
         "id": "stw1969_3k",
         "display_name": "1969 (OSU)",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/stw1969_3k/MapServer",
+        "thumbnail_file": "thumb_stw1969_3k.JPG",
         "maxZoom": 20
       },
       {
@@ -69,6 +75,7 @@ module.exports = [
         "id": "OSU_1978",
         "display_name": "1978 (OSU)",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/OSU_1978/MapServer",
+        "thumbnail_file": "thumb_OSU_1978.JPG",
         "maxZoom": 20
       },
       {
@@ -77,6 +84,7 @@ module.exports = [
         "id": "stw1979",
         "display_name": "1979",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/stw1979/MapServer",
+        "thumbnail_file": "thumb_stw1979.JPG",
         "maxZoom": 19
       },
       {
@@ -85,6 +93,7 @@ module.exports = [
         "id": "osu1986_2",
         "display_name": "1986 (OSU)",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/osu1986_2/MapServer",
+        "thumbnail_file": "thumb_osu1986_2.JPG",
         "maxZoom": 20
       },
       {
@@ -93,6 +102,7 @@ module.exports = [
         "id": "osu1996",
         "display_name": "1996 (OSU)",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/osu1996/MapServer",
+        "thumbnail_file": "thumb_osu1996.JPG",
         "maxZoom": 20
       },
       {
@@ -101,6 +111,7 @@ module.exports = [
         "id": "stw1999_2",
         "display_name": "1999",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/stw1999_2/MapServer",
+        "thumbnail_file": "thumb_stw1999_2.JPG",
         "maxZoom": 20
       },      
       {
@@ -109,6 +120,7 @@ module.exports = [
         "id": "payne_2003",
         "display_name": "2003",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/payne_2003/MapServer",
+        "thumbnail_file": "thumb_payne_2003.JPG",
         "maxZoom": 19
       },
       {
@@ -117,6 +129,7 @@ module.exports = [
         "id": "Payne_2006_sid",
         "display_name": "2006",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/Payne_2006_sid/MapServer",
+        "thumbnail_file": "thumb_Payne_2006_sid.JPG",
         "maxZoom": 19
       },
       {
@@ -125,6 +138,7 @@ module.exports = [
         "id": "payne_2010",
         "display_name": "2010",
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/payne_2010/MapServer",
+        "thumbnail_file": "thumb_payne_2010.JPG",
         "maxZoom": 19
       },
 
@@ -134,18 +148,21 @@ module.exports = [
         "id": "naip2017",
         "layers": "0",
         "display_name": "2017",
+        "thumbnail_file": "thumb_naip2017.JPG",
         "url": "https://gis.apfo.usda.gov/arcgis/services/NAIP/Oklahoma/ImageServer/WMSServer"
       }
       // {
       //   "type": "EsriTiledMapLayer",
       //   "id": "Map_Stillwater_1959",
       //   "display_name": "Map of Stillwater, 1959",
+      //  "thumbnail_file": "thumb_Map_Stillwater_1959.JPG",
       //   "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/Map_Stillwater_1959/MapServer"
       // }
       //{
       //   "type": "TileLayer",
       //   "id": "osuOrange",
       //   "display_name": "orange",
+      //  "thumbnail_file": "thumb_osuOrange.JPG",
       //   "url": "https://api.mapbox.com/styles/v1/krdyke/cj9slcunc24xi2sqpg7xnsigk/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia3JkeWtlIiwiYSI6Ik15RGcwZGMifQ.IR_NpAqXL1ro8mFeTIdifg"
       // },
 

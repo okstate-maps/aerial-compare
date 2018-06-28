@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Control from 'react-leaflet-control';
+import Config from './Config';
 import {Map, TileLayer, WMSTileLayer} from 'react-leaflet';
 import EsriTiledMapLayer from './EsriTiledMapLayer';
 import 'leaflet.sync';
@@ -11,7 +12,8 @@ class MapView extends Component {
   
   constructor(props, context) {
     super(props)
-    this.mapboxToken = "pk.eyJ1Ijoia3JkeWtlIiwiYSI6Ik15RGcwZGMifQ.IR_NpAqXL1ro8mFeTIdifg";
+    this.mapboxToken = Config.mapboxToken;
+    this.labelLayerUrl = Config.labelLayerUrl + this.mapboxToken;
 
     const DEFAULT_VIEWPORT = {
       center: [36.1156, -97.0584],
@@ -75,11 +77,11 @@ class MapView extends Component {
   }
 
   componentWillUpdate(){
-    console.log("MapView WillUpdate");
+    //console.log("MapView WillUpdate");
   }
 
   componentDidUpdate(prevProps, prevState){
-    console.log("MapView DidUpdate");
+    //console.log("MapView DidUpdate");
 
     if (prevProps.geocodeResult !== this.props.geocodeResult) {
       let randomMap = Object.entries(this.refs)[0][1];
@@ -116,7 +118,7 @@ class MapView extends Component {
       "TileLayer": TileLayer
     }
     const that = this;
-    const labelLayerUrl = 'https://api.mapbox.com/styles/v1/krdyke/cjf9wgvwg0zlh2rmo4jx9jcec/tiles/256/{z}/{x}/{y}?access_token=' + this.mapboxToken;
+    const labelLayerUrl = this.labelLayerUrl;
     var filtered_layers = layers.filter(lyr => {
       if (lyr.isToggledOn){
         return true;
@@ -160,6 +162,7 @@ class MapView extends Component {
                     <Layer 
                         key={layer.id} 
                         url={layer.url}
+                        layers={layer.layers}
                         maxZoom={layer.maxZoom}
                         opacity={layer.opacity} />
                     <Control position="topright">
