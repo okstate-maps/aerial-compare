@@ -1,15 +1,14 @@
 .ScrollButton {
   position: absolute;
   top: 30%;
-	width:50px;
-  height:50px;
-  line-height: 50px;
+	width:55px;
+  height:55px;
+  line-height: 55px;
   font-size: 30px;
   border-radius: 50%;
 	outline:black 5px;
   background-color: #f7601c;
   color: black;
-  box-shadow: 0px 10px 10px rgba(0,0,0,0.65);
   box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
 	transition: background-color 0.1s linear;
   transition: box-shadow 0.1s linear;
@@ -32,9 +31,9 @@
 }
 
 .left {
-	left: 5px;
+	left: 7px;
 }
 
 .right {
-	right: 5px;
+	right: 7px;
 }
