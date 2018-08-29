@@ -1,11 +1,13 @@
 .ViewBar-container {
-	display: flex;
+	/*display: flex;*/
+		background-color: #FF9900;
+	position: relative;
 }
 
 .ViewBar-container .flip-move {
 	/*height:30vh;  grid */
 	/*min-height: 100px; grid */
-	background-color: #FF9900;
+
 	/*width:100%;*/
 	/*position: fixed;*/
 	overflow-x: auto;
@@ -17,6 +19,8 @@
 	justify-content: normal;
 	-webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
+    margin-left: 20px;
+    margin-right:20px;
 }
 
 

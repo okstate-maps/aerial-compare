@@ -14,6 +14,23 @@ Each layer has the following required values:
 module.exports = [
 
       {
+        "sortVal": 1923,
+        "type": "EsriTiledMapLayer",
+        "id": "stw_1923map",
+        "display_name": "1923",
+        "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/stw_1923map/MapServer",
+        "thumbnail_file": "thumb_stw_1923map.JPG",
+        "maxZoom": 20
+      },      {
+        "sortVal": 1936,
+        "type": "EsriTiledMapLayer",
+        "id": "oksm_WPA_PAY_017",
+        "display_name": "1936",
+        "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/oksm_WPA_PAY_017/MapServer",
+        "thumbnail_file": "thumb_oksm_WPA_PAY_017.JPG",
+        "maxZoom": 20
+      },
+      {
         "sortVal": 1938,
         "type": "EsriTiledMapLayer",
         "id": "stw1938",
@@ -95,6 +112,16 @@ module.exports = [
         "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/osu1986_2/MapServer",
         "thumbnail_file": "thumb_osu1986_2.JPG",
         "maxZoom": 20
+      },
+
+      {
+        "sortVal": 1995,
+        "type": "EsriTiledMapLayer",
+        "id": "stw1995_2",
+        "display_name": "1995",
+        "url": "https://tiles.arcgis.com/tiles/jWQlP64OuwDh6GGX/arcgis/rest/services/stw1995_2/MapServer",
+        "thumbnail_file": "thumb_stw1995_2.JPG",
+        "maxZoom": 19
       },
       {
         "sortVal": 1996,

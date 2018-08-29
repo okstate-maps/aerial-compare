@@ -13,7 +13,7 @@ class ScrollButton extends Component {
   }
 
   render() {
-    let arrow = this.props.direction === "left" ? "\u25c0" : "\u25b6";
+    let arrow = this.props.direction === "left" ? "\u2b9c" : "\u2b9e";
     return (
       <div className={'ScrollButton ' + this.props.direction}
            onClick={this.onClick}>  
