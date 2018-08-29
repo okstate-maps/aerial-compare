@@ -1,8 +1,25 @@
 .ScrollButton {
   position: absolute;
   top: 30%;
+  width:65px;
+  height:65px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  -webkit-user-select: none;  
+     -moz-user-select: none;     
+      -ms-user-select: none;      
+          user-select: none;      
+
+}
+
+.ScrollButton button {
 	width:55px;
   height:55px;
+  position: relative;
+  top:5px;
+  border: none;
   line-height: 55px;
   font-size: 30px;
   border-radius: 50%;
@@ -22,12 +39,18 @@
 
 }
 
-.ScrollButton:hover {
-	background-color: #f28454;
+.ScrollButton button:hover {
+  background-color: #f28454;
   box-shadow: 0 0 6px rgba(0,0,0,.16),0 6px 12px rgba(0,0,0,.32);
-	transition: background-color 0.1s linear;
-  transition: box-shadow 0.1s linear;
-  
+  transition: background-color 0.1s linear;
+  transition: box-shadow 0.1s linear; 
+}
+
+.ScrollButton button:active {
+	transform:translatey(6px);
+  box-shadow: none;
+  transition: transform 0.1s linear;
+	transition: box-shadow 0.1s linear; 
 }
 
 .left {

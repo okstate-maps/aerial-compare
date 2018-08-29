@@ -17,7 +17,7 @@ class ScrollButton extends Component {
     return (
       <div className={'ScrollButton ' + this.props.direction}
            onClick={this.onClick}>  
-        {arrow}
+          <button>{arrow}</button>
       </div>
     );
   }
