@@ -24,7 +24,7 @@
   font-size: 30px;
   border-radius: 50%;
 	outline:black 5px;
-  background-color: #f7601c;
+  background-color: #FF9900;
   color: black;
   box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
 	transition: background-color 0.1s linear;
@@ -40,7 +40,7 @@
 }
 
 .ScrollButton button:hover {
-  background-color: #f28454;
+  background-color: #ffa366;
   box-shadow: 0 0 6px rgba(0,0,0,.16),0 6px 12px rgba(0,0,0,.32);
   transition: background-color 0.1s linear;
   transition: box-shadow 0.1s linear; 
