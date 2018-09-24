@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { Textfit } from 'react-textfit';
 import Config from './Config';
 import './Item.css';
 
@@ -26,6 +25,7 @@ class Item extends Component {
       isToggledOn: !prevState.isToggledOn,
       opacity: 1.0
     }));
+
     this.props.onItemClick({
       "sortVal": this.props.sortVal,
       "opacity": 1.0,
@@ -49,6 +49,9 @@ class Item extends Component {
         <div>
           {this.props.display_name}
         </div>
+    {/*    <div className={this.state.isDownloadable ? 'button-download' : '' }>
+
+        </div>*/}
       </div>
     );
   }

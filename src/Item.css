@@ -6,8 +6,8 @@ div.item {
     min-width: 8vw;
     max-width: 300px;
     margin: 15px 10px;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 25px;
+    padding-left: 25px;
     background-position: center;
     background-size: cover;
     cursor: pointer;
