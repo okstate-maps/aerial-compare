@@ -15,6 +15,7 @@ class ViewBar extends Component {
     //this.sortItems = this.sortItems.bind(this);
     this.scrollTo = this.scrollTo.bind(this);
     this.onScroll = this.onScroll.bind(this);
+    this.onWheel = this.onWheel.bind(this);
     this.easeInOutQuad = this.easeInOutQuad.bind(this);
   }
 
@@ -69,7 +70,23 @@ class ViewBar extends Component {
   // }
 
   onScroll(e){
+    console.log("onScroll");
     this.setState({"scrollLeft": e.nativeEvent.target.scrollLeft});
+  }
+
+  onWheel(e){
+    let clientWidth = document.documentElement.clientWidth,
+        elem  = document.getElementById("viewbarItems"),
+        scrollUnit = 50,
+
+        // deltaMode indicates if the deltaY value is pixels or lines (0 for pixels, 1 for lines, 2 for page)
+        deltaMode = e.deltaMode,
+
+        //if the deltamode is anything but pixels (0), use scroll unit to calculate scroll amount
+        scrollSize = deltaMode === (1 || 2) ? e.deltaY * scrollUnit: e.deltaY;
+    
+    elem.scrollLeft = elem.scrollLeft + scrollSize;
+    this.setState({"scrollLeft": elem.scrollLeft});
   }
 
   scrollTo(direction, duration) {
@@ -111,7 +128,7 @@ class ViewBar extends Component {
       <footer className='ViewBar-container bottom'>
         <ScrollButton direction="left" onClick={this.handleScrollButtonClick}/>
          {/*<FlipMove onScroll={this.onScroll} scrollleft={this.state.scrollLeft} className='flip-move' duration={500} easing="ease-out" id="viewbarItems">*/}
-         <div onScroll={this.onScroll} scrollleft={this.state.scrollLeft} className='flip-move' id="viewbarItems">
+         <div onWheel={this.onWheel} onScroll={this.onScroll} scrollleft={this.state.scrollLeft} className='flip-move' id="viewbarItems">
            {items.map(item => <Item 
                 numberOfLayersOn={this.props.numberOfLayersOn}
                 key={item.id} 

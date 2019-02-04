@@ -182,7 +182,7 @@ module.exports = [
         "sortVal": 9999,    
         "type": "EsriTiledMapLayer", 
         "id": "esri_imagery",
-        "display_name": "Today",
+        "display_name": "2018",
         "thumbnail_file": "thumb_naip2017.JPG",
         "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
         "maxZoom": 19
