@@ -90,6 +90,7 @@ module.exports = [
         "sortVal": 1969,
         "type": "EsriTiledMapLayer",
         "id": "stw1969_3k",
+        "footprint_layer": "stw1969_3k_fp",
         "display_name": "1969 (OSU)",
         "url": ARCGIS_BASE_TILE_PATH + "/stw1969_3k/MapServer",
         "thumbnail_file": "thumb_stw1969_3k.JPG",
