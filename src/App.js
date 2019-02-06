@@ -13,7 +13,7 @@ class App extends Component {
     this.handleItemClick = this.handleItemClick.bind(this);
     this.transmitGeocode = this.transmitGeocode.bind(this);
     this.mapCenter = this.mapCenter.bind(this);
-    this.state = {"layers":[], "numberOfLayersOn": 0, "geocodeResult": {}};
+    this.state = {"layers":[], "numberOfLayersOn": 0, "geocodeResult": {}, "labelLayerOn": true};
     //alert alert hack ahead
     window.vex = Vex;
     window.vex.registerPlugin(plugin);

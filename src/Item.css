@@ -14,13 +14,19 @@ div.item {
     display:inline-flex;
   	justify-content: center;
   	align-items: center;
+    position: relative;
 }
 
 div.item:hover {
 	box-shadow: 
 }
 
-div.item .textfit, div.item div {
+div.item .button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+div.item .textfit, div.item div.label {
 	color: #FF9900;
 	width:100%;
 	flex: none;

@@ -57,7 +57,7 @@ module.exports = [
         "id": "stw1956_tiles",
         "display_name": "1956",
         "url": ARCGIS_BASE_TILE_PATH + "/stw1956_tiles/MapServer",
-        "thumbnail_file": "thumb_stw1938.JPG",
+        "thumbnail_file": "thumb_stw1956_tiles.JPG",
         "maxZoom": 19
       },
       {
@@ -90,6 +90,7 @@ module.exports = [
         "sortVal": 1969,
         "type": "EsriTiledMapLayer",
         "id": "stw1969_3k",
+        "footprint_layer": "stw1969_3k_fp",
         "display_name": "1969 (OSU)",
         "url": ARCGIS_BASE_TILE_PATH + "/stw1969_3k/MapServer",
         "thumbnail_file": "thumb_stw1969_3k.JPG",
@@ -182,7 +183,7 @@ module.exports = [
         "sortVal": 9999,    
         "type": "EsriTiledMapLayer", 
         "id": "esri_imagery",
-        "display_name": "Today",
+        "display_name": "2018",
         "thumbnail_file": "thumb_naip2017.JPG",
         "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
         "maxZoom": 19

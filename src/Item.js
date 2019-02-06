@@ -46,12 +46,13 @@ class Item extends Component {
           onClick={this.onClick} 
           style={{backgroundImage: "url('assets/images/" + this.props.thumbnail_file + "')"}}
           id={this.props.id}>
-        <div>
+        <div className="label">
           {this.props.display_name}
         </div>
-    {/*    <div className={this.state.isDownloadable ? 'button-download' : '' }>
 
-        </div>*/}
+        <div className="button">
+
+        </div>
       </div>
     );
   }
