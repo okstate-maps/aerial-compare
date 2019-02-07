@@ -84,6 +84,8 @@ class ViewBar extends Component {
 
         //if the deltamode is anything but pixels (0), use scroll unit to calculate scroll amount
         scrollSize = deltaMode === (1 || 2) ? e.deltaY * scrollUnit: e.deltaY;
+
+    e.preventDefault();
     
     elem.scrollLeft = elem.scrollLeft + scrollSize;
     this.setState({"scrollLeft": elem.scrollLeft});
