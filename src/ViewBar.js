@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import sortOn from 'sort-on';
 //import FlipMove from 'react-flip-move';
 import Item from './Item';
+import AddLayerItem from './AddLayerItem';
 import ScrollButton from './ScrollButton';
 import LayersInfo from './LayersInfo';
 import './ViewBar.css';
@@ -13,8 +14,8 @@ class ViewBar extends Component {
     this.handleItemClick = this.handleItemClick.bind(this);
     this.handleScrollButtonClick = this.handleScrollButtonClick.bind(this);
     //this.sortItems = this.sortItems.bind(this);
+    this.addLayer = this.addLayer.bind(this);
     this.scrollTo = this.scrollTo.bind(this);
-    this.onScroll = this.onScroll.bind(this);
     this.onWheel = this.onWheel.bind(this);
     this.easeInOutQuad = this.easeInOutQuad.bind(this);
   }
@@ -40,13 +41,32 @@ class ViewBar extends Component {
 
   }
 
+  addLayer(data) {
+    console.log(data);
+    let state = this.state,
+      new_layer = data,
+      id = new_layer.display_name + "_new", //lazy id baby
+      sortVal = this.state.layers.slice(-1)[0].sortVal - 1,
+      thumbnail_file = "dummy.png",
+      maxZoom = 20;
+
+    new_layer.id = id;
+    new_layer.sortVal = sortVal;
+    new_layer.thumbnail_file = thumbnail_file;
+    new_layer.maxZoom = maxZoom;
+    
+    state.layers.push(new_layer);
+    delete(state.new_layer_data);
+    this.setState(state);
+  }
+
   componentWillUpdate(){
     //console.log("ViewBar WillUpdate");
 
   }
 
   componentDidUpdate(prevProps, prevState){
-    //console.log("ViewBar DidUpdate");
+    
   }
 
   componentWillMount(prevProps, prevState){
@@ -69,14 +89,9 @@ class ViewBar extends Component {
   //   return toggledOnSubarray.concat(offSubarray);
   // }
 
-  onScroll(e){
-    console.log("onScroll");
-    this.setState({"scrollLeft": e.nativeEvent.target.scrollLeft});
-  }
 
   onWheel(e){
-    let clientWidth = document.documentElement.clientWidth,
-        elem  = document.getElementById("viewbarItems"),
+    let elem  = document.getElementById("viewbarItems"),
         scrollUnit = 50,
 
         // deltaMode indicates if the deltaY value is pixels or lines (0 for pixels, 1 for lines, 2 for page)
@@ -88,7 +103,7 @@ class ViewBar extends Component {
     e.preventDefault();
     
     elem.scrollLeft = elem.scrollLeft + scrollSize;
-    this.setState({"scrollLeft": elem.scrollLeft});
+    //this.setState({"scrollLeft": elem.scrollLeft});
   }
 
   scrollTo(direction, duration) {
@@ -130,7 +145,7 @@ class ViewBar extends Component {
       <footer className='ViewBar-container bottom'>
         <ScrollButton direction="left" onClick={this.handleScrollButtonClick}/>
          {/*<FlipMove onScroll={this.onScroll} scrollleft={this.state.scrollLeft} className='flip-move' duration={500} easing="ease-out" id="viewbarItems">*/}
-         <div onWheel={this.onWheel} onScroll={this.onScroll} scrollleft={this.state.scrollLeft} className='flip-move' id="viewbarItems">
+         <div onWheel={this.onWheel} className='flip-move' id="viewbarItems">
            {items.map(item => <Item 
                 numberOfLayersOn={this.props.numberOfLayersOn}
                 key={item.id} 
@@ -143,7 +158,9 @@ class ViewBar extends Component {
                 thumbnail_file={item.thumbnail_file}
                 maxZoom={item.maxZoom ? item.maxZoom : 20}
                 onItemClick={this.handleItemClick}
+
               />)}
+           <AddLayerItem numberOfLayersOn={this.props.numberOfLayersOn} addLayer={this.addLayer} />
           {/*</FlipMove>*/}
           </div>
         <ScrollButton direction="right" onClick={this.handleScrollButtonClick}/>
