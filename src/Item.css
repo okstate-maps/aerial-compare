@@ -1,7 +1,7 @@
 div.item {
-    min-height: 75px;
-    max-height: 230px;
-    height:15vh;
+    min-height: 55px;
+    max-height: 200px;
+    height:12vh;
     flex: 1 0 auto;
     min-width: 8vw;
     max-width: 300px;
