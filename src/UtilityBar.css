@@ -1,0 +1,17 @@
+.UtilityBar {
+	flex: 0 0 50px;
+	background-color: #FF6600;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	/*column-gap: 20px;  applies to flex only on FF currently,
+		so for now stick to the .Ut > div margin stuff below */
+}
+
+.UtilityBar > div {
+	/* Spacing between flex items */
+	margin-right: 10px;
+	margin-left: 10px;
+}

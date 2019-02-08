@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Vex from 'vex-js';
 import plugin from 'vex-dialog';
-import Geocoder from './Geocoder';
+import Fullscreen from 'react-fullscreen-crossbrowser';
+import UtilityBar from './UtilityBar';
 import MapView from './MapView';
 import ViewBar from './ViewBar';
 import './App.css';
@@ -12,6 +13,7 @@ class App extends Component {
     super(props);
     this.handleItemClick = this.handleItemClick.bind(this);
     this.transmitGeocode = this.transmitGeocode.bind(this);
+    this.toggleFullscreen = this.toggleFullscreen.bind(this);
     this.mapCenter = this.mapCenter.bind(this);
     this.state = {"layers":[], "numberOfLayersOn": 0, "geocodeResult": {}, "labelLayerOn": true};
     //alert alert hack ahead
@@ -23,6 +25,12 @@ class App extends Component {
   transmitGeocode(geocode) {
     this.setState({"geocode": geocode});
   }
+
+  toggleFullscreen() {
+    let current_val = this.state.isFullscreenEnabled;
+    this.setState({isFullscreenEnabled: !current_val});
+  }
+
 
   mapCenter(center){
     this.setState({"mapCenter": center});
@@ -60,7 +68,11 @@ class App extends Component {
   render() {
    
     return (
+      <Fullscreen
+          enabled={this.state.isFullscreenEnabled}
+          onChange={isFullscreenEnabled => this.setState({isFullscreenEnabled})}>
       <div className="App">
+      
         <header className="App-header">
           Stillwater from the Air
         </header>
@@ -69,10 +81,15 @@ class App extends Component {
                    geocodeResult={this.state.geocode}
                    mapCenter={this.mapCenter}/>  
         </div>
-        {this.state.numberOfLayersOn > 0 && <Geocoder transmitGeocode={this.transmitGeocode} />}
+        {this.state.numberOfLayersOn > 0 && 
+          <UtilityBar transmitGeocode={this.transmitGeocode} 
+                      toggleFullscreen={this.toggleFullscreen}
+                      isFullscreenEnabled={this.state.isFullscreenEnabled} />
+        }
         <ViewBar onItemClick={this.handleItemClick}
                  numberOfLayersOn={this.state.numberOfLayersOn} />
       </div>
+      </Fullscreen>
     );
   }
 }
