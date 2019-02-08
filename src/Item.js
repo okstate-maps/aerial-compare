@@ -42,7 +42,7 @@ class Item extends Component {
 
   render() {
     return (
-      <div className={this.state.isToggledOn ? 'item on' : 'item off'} 
+      <button className={this.state.isToggledOn ? 'item on' : 'item off'} 
           onClick={this.onClick} 
           style={{backgroundImage: "url('assets/images/" + this.props.thumbnail_file + "')"}}
           id={this.props.id}>
@@ -53,7 +53,7 @@ class Item extends Component {
         <div className="button">
 
         </div>
-      </div>
+      </button>
     );
   }
 }
