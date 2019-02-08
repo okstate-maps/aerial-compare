@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Vex from 'vex-js';
 import plugin from 'vex-dialog';
-import Geocoder from './Geocoder';
+import UtilityBar from './UtilityBar';
 import MapView from './MapView';
 import ViewBar from './ViewBar';
 import './App.css';
@@ -61,6 +61,7 @@ class App extends Component {
    
     return (
       <div className="App">
+      
         <header className="App-header">
           Stillwater from the Air
         </header>
@@ -69,7 +70,7 @@ class App extends Component {
                    geocodeResult={this.state.geocode}
                    mapCenter={this.mapCenter}/>  
         </div>
-        {this.state.numberOfLayersOn > 0 && <Geocoder transmitGeocode={this.transmitGeocode} />}
+        {this.state.numberOfLayersOn > 0 && <UtilityBar transmitGeocode={this.transmitGeocode}/>}
         <ViewBar onItemClick={this.handleItemClick}
                  numberOfLayersOn={this.state.numberOfLayersOn} />
       </div>

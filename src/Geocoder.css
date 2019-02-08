@@ -1,13 +1,3 @@
-.Geocoder {
-	flex: 0 0 50px;
-	background-color: #FF6600;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	z-index: 1000;
-}
-
 #hidden-geocoder-map {
 	display: none;
 	width: none;

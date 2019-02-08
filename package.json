@@ -15,6 +15,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-fullscreen-crossbrowser": "^1.0.9",
     "react-leaflet": "^1.8.0",
     "react-leaflet-control": "^1.4.1",
     "react-scripts": "1.1.0",
