@@ -47,7 +47,7 @@ class Item extends Component {
           style={{backgroundImage: "url('assets/images/" + this.props.thumbnail_file + "')"}}
           id={this.props.id}>
         <div className="label">
-          {this.props.display_name}
+          {this.props.display_name.length >= 40 ? this.props.display_name.slice(0,this.props.display_name.slice(0,41).lastIndexOf(" "))+"..." : this.props.display_name}
         </div>
 
         <div className="button">
