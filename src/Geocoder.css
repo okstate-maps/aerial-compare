@@ -26,12 +26,16 @@
 }
 .Geocoder .leaflet-control-geocoder-form {
 	flex: 1 1 500px;
+	width: calc(100% - 33px);
+	max-width: 250px;
+	min-width:80px;
 
 }
 .Geocoder .leaflet-control-geocoder-form input {
 	font-size: 120%;
 	border: 0;
 	background-color: transparent;
+	width:100%;
 }
 
 .Geocoder .leaflet-control-geocoder-icon {

@@ -32,6 +32,7 @@ class Geocoder extends Component {
         ),
         "collapsed": false,
         "suggestMinLength": 3,
+        "queryMinLength": 1,
         defaultMarkGeocode: false
       });
     this.geocoderObj.addTo(this.map);
