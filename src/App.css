@@ -64,44 +64,50 @@ table {
 }
 
 .App-header {
-  background-color: #222;
+  background-color: #FF6600;
   /*height: 4vh; grid*/
-  color: #FF6600;
+  color: #222;
   font-family: "Faster One", "sans-serif";
   line-height: 1.5em;
+
 }
 
 
 @media (max-width: 461px) {
 
   .App-header {
-    line-height: 1
+    line-height: 1;
+    letter-spacing: 1px;
   }
 }
 @media (max-width: 584px) {
   .App-header {
     font-size:2em;
+    letter-spacing: 2px;
   }
 }
 
 @media (min-width: 585px) and (max-width: 850px) {
 
   .App-header {
-    font-size:2.5em;
+    font-size:2.4em;
+    letter-spacing: 3px;
   }
 }
 
 @media (min-width: 851px) and (max-width: 2500px) {
 
   .App-header {
-    font-size:3em;
+    font-size:2.8em;
+    letter-spacing: 4px;
   }
 }
 
 @media (min-width: 2501px) {
 
   .App-header {
-    font-size:4em;
+    font-size:3.2em;
+    letter-spacing: 4px;
   }
 }
 

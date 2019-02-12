@@ -1,7 +1,7 @@
-div.item {
-    min-height: 75px;
-    max-height: 230px;
-    height:15vh;
+button.item {
+    min-height: 55px;
+    max-height: 200px;
+    height:12vh;
     flex: 1 0 auto;
     min-width: 8vw;
     max-width: 300px;
@@ -15,22 +15,22 @@ div.item {
   	justify-content: center;
   	align-items: center;
     position: relative;
+    border: none;
 }
 
-div.item:hover {
-	box-shadow: 
-}
-
-div.item .button {
+button.item .button {
   position: absolute;
   top: 0;
   right: 0;
 }
-div.item .textfit, div.item div.label {
+
+button.item div.label {
+  font-size: 3.4em;
 	color: #FF9900;
 	width:100%;
 	flex: none;
-	font-size: 2.2em;
+  font-family: 'Montserrat', 'Open Sans', sans-serif;
+  font-weight: 300;
 	white-space: normal;
 	text-shadow: black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.2em;
 	-webkit-user-select: none;  
@@ -39,14 +39,14 @@ div.item .textfit, div.item div.label {
   	user-select: none;          
 }
 
-div.item.on {
+button.item.on {
 	box-shadow: 0px 0px 0px 6px #333333;
 	transition-property: box-shadow;
 	transition-duration: 0.25s;
 	transition-timing-function: linear;
 }
 
-div.item.off {
+button.item.off {
 	box-shadow: 0px 0px 0px 0px #333333;
 	transition-property: box-shadow;
 	transition-duration: 0.25s;
