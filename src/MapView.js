@@ -156,15 +156,17 @@ class MapView extends Component {
                    onViewportChanged={that.onViewportChanged}
                    className ={'map'+ filtered_layers.length + ' p' + index}  
                    key={layer.id} 
-                   viewport={that.viewport}>
+                   viewport={that.viewport}
+                  >
                     <TileLayer url={labelLayerUrl}
+                      opacity={this.props.labelLayerOn ? 100 : 0}
                       zIndex={10000} />
                     <Layer 
-                        key={layer.id} 
-                        url={layer.url}
-                        layers={layer.layers}
-                        maxZoom={layer.maxZoom}
-                        opacity={layer.opacity} />
+                      key={layer.id} 
+                      url={layer.url}
+                      layers={layer.layers}
+                      maxZoom={layer.maxZoom}
+                      opacity={layer.opacity} />
                     <Control position="topright">
                       <div className={layer.display_name.length >= 40 ? "map-title long-title" : "map-title"}>{layer.display_name}</div>
                     </Control>

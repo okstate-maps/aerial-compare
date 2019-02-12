@@ -1,29 +1,19 @@
 .ViewBar-container {
-	/*display: flex;*/
 	background-color: #FF6600;
 	position: relative;
 }
 
 .ViewBar-container .flip-move {
-	/*height:30vh;  grid */
-	/*min-height: 100px; grid */
-
-	/*width:100%;*/
-	/*position: fixed;*/
 	overflow-x: auto;
-	/*overflow-y: hidden;*/
-	/*white-space: nowrap;*/
 	display: flex;
 	flex-wrap:nowrap;
 	flex-direction: row;
 	justify-content: normal;
 	-webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-    margin-left: 20px;
-    margin-right:20px;
+    margin-left: 40px;
+    margin-right:40px;
 }
-
-
 
 .bottom {
 	bottom:0;

@@ -1,3 +1,11 @@
+#Geocoder {
+
+	-ms-flex: 0 1 350px;
+	flex: 0 1 350px;
+	max-width: 350px;
+	min-width: 100px;
+}
+
 #hidden-geocoder-map {
 	display: none;
 	width: none;
@@ -5,6 +13,9 @@
 }
 .Geocoder .leaflet-control-geocoder {
 	border-radius: 5px 5px 5px 0;
+	max-width: 350px;
+	min-width: 80px;
+	width: 100%;
 }
 
 .Geocoder input {
@@ -25,14 +36,16 @@
 	padding: 8px;
 }
 .Geocoder .leaflet-control-geocoder-form {
-	flex: 1 1 500px;
-	width: calc(100% - 33px);
-	max-width: 250px;
-	min-width:80px;
-
+	flex: 2 1 1;
+	width: calc(100% - 30px);
 }
+
+.Geocoder .leaflet-control-geocoder-form-no-error,
 .Geocoder .leaflet-control-geocoder-form input {
-	font-size: 120%;
+	font-size: 85%;
+}
+
+.Geocoder .leaflet-control-geocoder-form input {
 	border: 0;
 	background-color: transparent;
 	width:100%;

@@ -14,8 +14,13 @@ class App extends Component {
     this.handleItemClick = this.handleItemClick.bind(this);
     this.transmitGeocode = this.transmitGeocode.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
+    this.toggleLabels = this.toggleLabels.bind(this);
     this.mapCenter = this.mapCenter.bind(this);
-    this.state = {"layers":[], "numberOfLayersOn": 0, "geocodeResult": {}, "labelLayerOn": true};
+    this.state = {"layers":[], 
+                  "numberOfLayersOn": 0, 
+                  "geocodeResult": {}, 
+                  "labelLayerOn": true};
+
     //alert alert hack ahead
     window.vex = Vex;
     window.vex.registerPlugin(plugin);
@@ -29,6 +34,12 @@ class App extends Component {
   toggleFullscreen() {
     let current_val = this.state.isFullscreenEnabled;
     this.setState({isFullscreenEnabled: !current_val});
+  }
+
+  toggleLabels() {
+    console.log("toggleLabels");
+    let curr = this.state.labelLayerOn;
+    this.setState({"labelLayerOn": !curr});
   }
 
 
@@ -68,27 +79,36 @@ class App extends Component {
   render() {
    
     return (
+
       <Fullscreen
           enabled={this.state.isFullscreenEnabled}
           onChange={isFullscreenEnabled => this.setState({isFullscreenEnabled})}>
-      <div className="App">
-      
-        <header className="App-header">
-          Stillwater from the Air
-        </header>
-        <div id='maps'>
-          <MapView layers={this.state.layers}
-                   geocodeResult={this.state.geocode}
-                   mapCenter={this.mapCenter}/>  
+
+        <div className="App">
+        
+          <header className="App-header">
+            Stillwater from the Air
+          </header>
+
+          <div id='maps'>
+            <MapView layers={this.state.layers}
+                     geocodeResult={this.state.geocode}
+                     mapCenter={this.mapCenter}
+                     labelLayerOn={this.state.labelLayerOn} />  
+          </div>
+
+          {this.state.numberOfLayersOn > 0 && 
+            <UtilityBar transmitGeocode={this.transmitGeocode} 
+                        toggleFullscreen={this.toggleFullscreen}
+                        toggleLabels={this.toggleLabels}
+                        labelLayerOn={this.state.labelLayerOn}
+                        isFullscreenEnabled={this.state.isFullscreenEnabled} />
+          }
+
+          <ViewBar onItemClick={this.handleItemClick}
+                   numberOfLayersOn={this.state.numberOfLayersOn} />
+
         </div>
-        {this.state.numberOfLayersOn > 0 && 
-          <UtilityBar transmitGeocode={this.transmitGeocode} 
-                      toggleFullscreen={this.toggleFullscreen}
-                      isFullscreenEnabled={this.state.isFullscreenEnabled} />
-        }
-        <ViewBar onItemClick={this.handleItemClick}
-                 numberOfLayersOn={this.state.numberOfLayersOn} />
-      </div>
       </Fullscreen>
     );
   }

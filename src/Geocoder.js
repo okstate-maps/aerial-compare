@@ -31,9 +31,10 @@ class Geocoder extends Component {
           }
         ),
         "collapsed": false,
+        "placeholder": "Search for a Stillwater address",
         "suggestMinLength": 3,
         "queryMinLength": 1,
-        defaultMarkGeocode: false
+        "defaultMarkGeocode": false
       });
     this.geocoderObj.addTo(this.map);
     this.geocoderObj.on("markgeocode", e => that.transmitGeocode(e));

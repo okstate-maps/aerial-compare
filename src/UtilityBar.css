@@ -10,8 +10,41 @@
 		so for now stick to the .Ut > div margin stuff below */
 }
 
+.UtilityBar * {
+  font-family: 'Montserrat', 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 1.1em;
+  line-height: 24px;
+}
+
 .UtilityBar > div {
 	/* Spacing between flex items */
 	margin-right: 10px;
 	margin-left: 10px;
+	margin-top: 5px;
+}
+
+.UtilityBar > div > button  {
+	padding: 5px 15px;
+	border-radius: 4px;
+	background-color: white;
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border: none;
+}
+
+.UtilityBar > div > button:hover  {
+	background-color: #e5e5e5;
+}
+
+.UtilityBar > div > button:active  {
+	background-color: #bfbfbf;
+}
+
+.UtilityBar > div > button > span {
+	padding: 5px 15px;
+}
+
+
+.UtilityBar label {
+ 	white-space: nowrap;
 }
