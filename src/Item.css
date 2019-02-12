@@ -1,5 +1,5 @@
 button.item {
-    min-height: 55px;
+    min-height: 60px;
     max-height: 200px;
     height:12vh;
     flex: 1 0 auto;

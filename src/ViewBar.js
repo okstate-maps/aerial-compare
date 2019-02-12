@@ -75,8 +75,7 @@ class ViewBar extends Component {
   }
 
   onWheel(e){
-    let clientWidth = document.documentElement.clientWidth,
-        elem  = document.getElementById("viewbarItems"),
+    let elem  = document.getElementById("viewbarItems"),
         scrollUnit = 50,
 
         // deltaMode indicates if the deltaY value is pixels or lines (0 for pixels, 1 for lines, 2 for page)

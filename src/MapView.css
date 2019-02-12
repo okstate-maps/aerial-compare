@@ -51,21 +51,21 @@
 	@media (max-height: 600px) {
 		.no-maps p {
 			font-size: 1em;
-			line-height: 1.2em;
+			line-height: 1.1em;
 		}
 	}
 
 	@media (min-height: 601px) and (max-height: 800px) {
 		.no-maps p {
 			font-size: 1.2em;
-			line-height: 1.4em;
+			line-height: 1.2em;
 		}
 	}
 
 	@media (min-height: 801px) and (max-height: 900px) {
 		.no-maps p {
 			font-size: 1.7em;
-			line-height: 1.7em;
+			line-height: 1.3em;
 		}
 		.map-title {
 			font-size:2em;
@@ -81,7 +81,7 @@
 		}
 
 		.no-maps p {
-			line-height: 2em;
+			line-height: 1.6em;
 		}
 		.map-title.long-title {
 			font-size:1.5em;
@@ -106,21 +106,21 @@
 	@media (min-width: 501px) and (max-width: 600px) {
 		.no-maps p {
 			font-size: 1em;
-			line-height: 1.2em;
+			line-height: 1.1em;
 		}
 	}
 
 	@media (min-width: 601px) and (max-width: 800px) {
 		.no-maps p {
 			font-size: 1.2em;
-			line-height: 1.4em;
+			line-height: 1.2em;
 		}
 	}
 
 	@media (min-width: 801px) and (max-width: 1100px) {
 		.no-maps p {
 			font-size: 1.4em;
-			line-height: 1.4em;
+			line-height: 1.3em;
 		}
 	}
 
@@ -128,7 +128,7 @@
 	@media (min-width: 1101px) and (max-width: 1600px) {
 		.no-maps p {
 			font-size: 1.7em;
-			line-height: 1.7em;
+			line-height: 1.4em;
 		}
 		.map-title {
 			font-size:2em;
