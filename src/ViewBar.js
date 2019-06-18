@@ -47,7 +47,8 @@ class ViewBar extends Component {
       new_layer = data,
       id = new_layer.display_name + "_new", //lazy id baby
       sortVal = this.state.layers.slice(-1)[0].sortVal - 1,
-      thumbnail_file = "dummy.png",
+      thumbnail_file = "dummy.png", //use serviceItemId from AGOL server URL json to get to item thumbnail
+            //https://www.arcgis.com/sharing/rest/content/items/{serviceItemId}/info/thumbnail/thumbnail1553624905506.png
       maxZoom = 20;
 
     new_layer.id = id;
@@ -144,7 +145,6 @@ class ViewBar extends Component {
     return (
       <footer className='ViewBar-container bottom'>
         <ScrollButton direction="left" onClick={this.handleScrollButtonClick}/>
-         {/*<FlipMove onScroll={this.onScroll} scrollleft={this.state.scrollLeft} className='flip-move' duration={500} easing="ease-out" id="viewbarItems">*/}
          <div onWheel={this.onWheel} className='flip-move' id="viewbarItems">
            {items.map(item => <Item 
                 numberOfLayersOn={this.props.numberOfLayersOn}
@@ -161,7 +161,6 @@ class ViewBar extends Component {
 
               />)}
            <AddLayerItem numberOfLayersOn={this.props.numberOfLayersOn} addLayer={this.addLayer} />
-          {/*</FlipMove>*/}
           </div>
         <ScrollButton direction="right" onClick={this.handleScrollButtonClick}/>
       </footer>
