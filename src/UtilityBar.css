@@ -10,7 +10,7 @@
 		so for now stick to the .Ut > div margin stuff below */
 }
 
-.UtilityBar * {
+.UtilityBar > * {
   font-family: 'Montserrat', 'Open Sans', sans-serif;
   font-weight: 300;
   font-size: 1.1em;

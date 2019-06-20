@@ -125,7 +125,8 @@
 	}
 
 
-	@media (min-width: 1101px) and (max-width: 1600px) {
+	/*@media (min-width: 1101px) and (max-width: 1600px) {*/
+	@media (min-width: 1101px) {
 		.no-maps p {
 			font-size: 1.7em;
 			line-height: 1.4em;
@@ -138,7 +139,7 @@
 		}
 	}
 
-	@media (min-width: 1601px) and (max-width: 1850px) {
+/*	@media (min-width: 1601px) and (max-width: 1850px) {
 		.map-title, .no-maps p {
 			font-size:2.5em;
 		}
@@ -150,8 +151,8 @@
 			font-size:1.5em;
 		}
 	}
-
-	@media (min-width: 1851px) {
+*/
+/*	@media (min-width: 1851px) {
 		.map-title,.no-maps p {
 			font-size:3em;
 		}
@@ -161,7 +162,7 @@
 		.map-title.long-title {
 			font-size:2em;
 		}
-	}
+	}*/
 }
 
 
