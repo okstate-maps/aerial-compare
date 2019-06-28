@@ -9,7 +9,6 @@ import {tiledMapLayer} from 'esri-leaflet';
   };
 
   createLeafletElement(props) {
-  	console.log(props);
     return tiledMapLayer(props); 
   }
 }

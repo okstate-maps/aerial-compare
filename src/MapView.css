@@ -1,5 +1,6 @@
 .no-maps {
 	width:60%;
+	max-width: 60%;
 	left:20%;
 	height:100%;
 	display:flex;
@@ -23,6 +24,7 @@
   	-moz-user-select: none;     
   	-ms-user-select: none;      
   	user-select: none;  
+
 }
 #maps {
 	background-color: #FF6600;
@@ -35,7 +37,6 @@
 .map-title {
 	color: #FF6600;
 	font-family: 'Montserrat', 'Open Sans', sans-serif;
-	position: relative;
 	text-shadow: black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em;
 	max-width: 150px;
 	-webkit-user-select: none;  
@@ -43,8 +44,23 @@
   	-ms-user-select: none;      
   	user-select: none;          
 	line-height: 1.1em;
+	position: absolute;
+	right: 10px;
+	z-index: 10000;
+	top: 10px;
 }
 
+.List {
+	height:100%;
+	width:100%;
+}
+.
+
+
+div[data-react-beautiful-dnd-placeholder='0'] {
+	display: flex;
+
+}
 
 @media screen and (orientation: portrait) {
 
@@ -165,24 +181,60 @@
 	}*/
 }
 
+.List {
+	display:flex;
+
+}
+
+.List > div {
+	flex: 1;
+	position:relative;
+}
+.row1 .leaflet-container, .row2 .leaflet-container, div[data-react-beautiful-dnd-placeholder='0']  {
+	height:100%;
+}
+div[data-react-beautiful-dnd-placeholder='0'] {
+	flex-grow: 1 !important; /*hmmm */
+	flex-shrink: 1 !important;
+}
+.row1 {
+	height:100%;
+}
+.row1.two-rows, .row2.two-rows {
+	height:50%;
+}
+.row1, .row2 {
+	width:100%;
+}
 
 /*
 @media (min-width:800px) {
 
 */
-	.map0, .map1, .map2, .map3, .map5 {
+
+/*
+	#maps .map0, #maps .map1, #maps .map2, #maps .map3, #maps .map5 {
 		height:100%;
-	}
-	.map1 {
-		width:100vw;
+		position: absolute;
 	}
 
+
+	#maps .map1.dragging {
+		position: static;
+	}
+
+	#maps .map1 {
+		width:100vw;
+	}
+*/
 
 /* Two maps side by side 
 	
 	map map
 */
 
+
+/*
 	.map2 {
 		width:49.75vw;
 	}
@@ -195,12 +247,14 @@
 	.map2.p1 {
 		right:0;
 	}
-
+*/
 
 /* Three maps in a single row
 
 	map map map
 */
+
+/*
 	.map3 {
 		width:33%;
 	}
@@ -214,13 +268,15 @@
 		.map3.p2 {
 			right: 0;
 		}
-
+*/
 
 /* 4 maps arranged 2x2 
 
 	map map
 	map map
 */
+
+/*
 	.map4 {
 		width: 49.75vw;
 		height: 49.5%;
@@ -241,14 +297,14 @@
 		bottom:0;
 		right:0;
 	}
-
+*/
 
 /*	5 maps arranged 3 x 2
 
 	map map map
 	  map map
 */
-
+/*
 .map5 {
 	height:49.5%;
 }
@@ -278,6 +334,7 @@
 	bottom: 0;
 	right: 0;
 }
+*/
 
 /*
 	6 maps
@@ -286,6 +343,7 @@
 	map map map
 */
 
+/*
 .map6 {
 	width: 33%;
 	height: 49.5%;
@@ -316,6 +374,7 @@
 	right:0;
 }
 
+*/
 
 /*
 7 maps
@@ -325,6 +384,7 @@ map map map map
 
 */
 
+/*
 .map7 {
 	width:24.5%;
 	height: 49.5%;
@@ -361,7 +421,7 @@ map map map map
 	bottom:0;
 	left: 67%;	
 }
-
+*/
 
 /*
 8 Maps, 4 x 2
@@ -370,6 +430,8 @@ map map map map
 map map map map
 
 */
+
+/*
 .map8 {
 	width: 24.5%;
 	height: 49.5%;
@@ -407,3 +469,5 @@ map map map map
 	bottom:0;	
 	right:0;
 }
+
+*/
