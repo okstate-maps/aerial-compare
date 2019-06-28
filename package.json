@@ -17,8 +17,8 @@
     "react-beautiful-dnd": "^11.0.4",
     "react-dom": "^16.2.0",
     "react-fullscreen-crossbrowser": "^1.0.9",
-    "react-leaflet": "^1.8.0",
-    "react-leaflet-control": "^1.4.1",
+    "react-leaflet": "^2.4.0",
+    "react-leaflet-control": "^2.0.0",
     "react-scripts": "1.1.0",
     "vex-js": "^4.1.0",
     "webfontloader": "^1.6.28"

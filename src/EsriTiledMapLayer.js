@@ -1,15 +1,17 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import {TileLayer} from 'react-leaflet';
+import {GridLayer, withLeaflet} from 'react-leaflet';
 import {tiledMapLayer} from 'esri-leaflet';
 
-export default class EsriTiledMapLayer extends TileLayer {
+ class EsriTiledMapLayer extends GridLayer {
   static propTypes = {
     url: PropTypes.string.isRequired
   };
 
-  componentWillMount() {
-    super.componentWillMount();
-    const {map: _map, layerContainer: _lc, ...props, } = this.props;
-    this.leafletElement = tiledMapLayer(props); 
+  createLeafletElement(props) {
+  	console.log(props);
+    return tiledMapLayer(props); 
   }
 }
+
+export default withLeaflet(EsriTiledMapLayer);
