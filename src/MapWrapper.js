@@ -79,6 +79,7 @@ class MapWrapper extends Component {
   }
 
   syncMaps() {
+    debugger;
     for (let i in this.refs){
       for (let j in this.refs){
         if (i !== j){
@@ -95,7 +96,7 @@ class MapWrapper extends Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    //console.log("MapView DidUpdate");
+    console.log("MapWrapper DidUpdate");
 
     if (prevProps.geocodeResult !== this.props.geocodeResult) {
       let randomMap = Object.entries(this.refs)[0][1];
@@ -107,7 +108,7 @@ class MapWrapper extends Component {
   }
 
   componentDidMount(prevProps, prevState){
-    //console.log("MapView DidMount");
+    console.log("MapWrapper DidMount");
     this.invalidateMapSizes();
   }
 
@@ -132,6 +133,7 @@ class MapWrapper extends Component {
     const placeholder = this.props.placeholder;
     const layer = this.props.layer;
     let that = this;
+    const leafletRef = React.createRef(null);
     let Layer = layer_components[layer.type];
     const { provided, innerRef } = this.props;
   
@@ -142,8 +144,9 @@ class MapWrapper extends Component {
                     
                       ref={innerRef}
                       >
+
                     <Handle provided={provided} display_name={layer.display_name} />
-                    <Map ref={layer.id} 
+                    <Map ref={leafletRef} 
                      minZoom={11}
                      maxZoom={layer.maxZoom}
                      onViewportChanged={that.onViewportChanged}
@@ -166,7 +169,6 @@ class MapWrapper extends Component {
                         opacity={layer.opacity} />
 
                     </Map>
-                    {placeholder}
                   </div>
               )
   }

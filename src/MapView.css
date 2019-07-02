@@ -189,6 +189,7 @@ div[data-react-beautiful-dnd-placeholder='0'] {
 .List > div {
 	flex: 1;
 	position:relative;
+	flex-basis: 200px;
 }
 .row1 .leaflet-container, .row2 .leaflet-container, div[data-react-beautiful-dnd-placeholder='0']  {
 	height:100%;

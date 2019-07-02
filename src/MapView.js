@@ -45,6 +45,7 @@ class MapView extends Component {
   }
 
   syncMaps() {
+    debugger;
     for (let i in this.refs){
       for (let j in this.refs){
         if (i !== j){
@@ -59,6 +60,7 @@ class MapView extends Component {
   render() {
 
     // Use ids from layers array to create list of urls
+    const row = this.props.row;
     const layers = this.props.layers;
     const that = this;
     const labelLayerUrl = this.labelLayerUrl;
@@ -114,7 +116,7 @@ class MapView extends Component {
 
               </Draggable>
                 
-                          )
+            )
           });
         return maps;
       

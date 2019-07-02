@@ -3,10 +3,12 @@ import Vex from 'vex-js';
 import plugin from 'vex-dialog';
 import Fullscreen from 'react-fullscreen-crossbrowser';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { cloneDeep } from 'lodash';
 import UtilityBar from './UtilityBar';
 import MapView from './MapView';
 import ViewBar from './ViewBar';
 import './App.css';
+
 
 Array.prototype.move = function(from, to) {
     this.splice(to, 0, this.splice(from, 1)[0]);
@@ -18,7 +20,7 @@ class List extends React.Component {
     return (
       <div className={this.props.className} {...provided.droppableProps} ref={innerRef}>
         {children}
-        {provided.placeholder} 
+        {provided.placeholder}
       </div>
     );
   }
@@ -35,7 +37,9 @@ class App extends Component {
     this.toggleLabels = this.toggleLabels.bind(this);
     this.mapCenter = this.mapCenter.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.state = {"layers":[], 
+    this.state = {"layers":[],
+                  "rows":{ "row1":[], "row2":[]},
+                  "numberRows": ["row1"], //default to include one row so the no-maps message displays 
                   "numberOfLayersOn": 0, 
                   "geocodeResult": {}, 
                   "labelLayerOn": true};
@@ -66,15 +70,43 @@ class App extends Component {
     this.setState({"mapCenter": center});
   }
 
+
+
   onDragEnd(draggedLayer) {
+    console.log(draggedLayer);
+    let allLayers = cloneDeep(this.state.layers);
+    let newStateLayers = cloneDeep(this.state.rows);
+    
+    let sourceRow = draggedLayer.source.droppableId;
+    let destRow = draggedLayer.destination.droppableId;
+    
     let layerId = draggedLayer.draggableId.replace("draggable-","");
-    console.log("dragged layer is: " + layerId);
+
     let currentLayerIndex = this.findWithAttr(this.state.layers, "id", layerId);
-    console.log("current index of layer is: " + currentLayerIndex);
-    let newStateLayers = {"layers": this.state.layers};
-    console.log("new index is: " + draggedLayer.destination.index);
-    newStateLayers["layers"].move(currentLayerIndex,draggedLayer.destination.index);
-    this.setState(newStateLayers);
+    let destinationIndex;
+    if (destRow === "row2") {
+      destinationIndex = this.state.rows["row1"].length + draggedLayer.destination.index;
+    }
+
+    else {
+      destinationIndex = draggedLayer.destination.index;
+    }
+
+    console.log("Current Index: " + currentLayerIndex);
+    console.log("Destination Index: " + destinationIndex);
+
+/*
+    if (destRow !== sourceRow) {
+      console.log("Dragged layer changed row! wowweee");
+      newStateLayers[destRow] = [...newStateLayers[destRow], newStateLayers[sourceRow][currentLayerIndex]];
+      newStateLayers[sourceRow].splice(currentLayerIndex, 1);
+    }*/
+
+    allLayers.move(currentLayerIndex, destinationIndex);
+    let allTurnedOnLayers = cloneDeep(allLayers.filter(i => i.isToggledOn));
+    let newState = this.splitLayersIntoRows(allTurnedOnLayers, this.state.numberOfLayersOn);
+
+    this.setState({...newState, "layers": allLayers});
   }
 
   findWithAttr(array, attr, value) {
@@ -85,50 +117,52 @@ class App extends Component {
     }
     return -1;
   }
-
+  componentDidUpdate(prevProps, prevState){
+    //console.log("hi");
+  }
 
   handleItemClick(data) {
     let found = false;
-    let newState = {};
+    let newStateLayers = cloneDeep(this.state.layers);
+    
 
-    this.state.layers.forEach((lyr, index) => {
+    newStateLayers.forEach((lyr, index) => {
       if (data.id === lyr.id){
         found = [true,index];
       }
     });
 
     if (!found){
-        newState.layers = [...this.state.layers, data];
+        newStateLayers = newStateLayers.concat([data]);
     }
 
     else {
-      newState = this.state;
-      newState.layers[found[1]] = data;
+
+      newStateLayers[found[1]].isToggledOn = !this.state.layers[found[1]].isToggledOn;
 
       //rearrange the layers array so display order matches clicked order
-      newState.layers.splice(newState.layers.length - 1,
-       0, newState.layers.splice(found[1], 1)[0]
-      );
+      newStateLayers.move(found[1], newStateLayers.length - 1);
       
     }
 
-      newState.numberOfLayersOn = newState.layers.filter(i => i.isToggledOn).length;
-      this.setState(newState);
+    let newNumberOfLayersOn = newStateLayers.filter(i => i.isToggledOn).length;
+    let rowState = this.splitLayersIntoRows(cloneDeep(newStateLayers.filter(i => i.isToggledOn)), newNumberOfLayersOn);
+    let newState = {...rowState, "layers": newStateLayers,
+                  "numberOfLayersOn": newNumberOfLayersOn};
+
+    this.setState(newState);
   }
 
-
-
-
-  render() {
+ 
+ splitLayersIntoRows(layers, numberOfLayersOn) {
     let numberRows;
+    let newState = {rows: {}};
     let rowOneLayers;
     let rowTwoLayers;
-    let allLayers = this.state.layers;
-    const droppableId = "droppable"; 
-    const numberOfLayersOn = this.state.numberOfLayersOn;
+    let allLayers = layers;
     
     if (numberOfLayersOn >= 4){
-      numberRows = [1,2];
+      numberRows = ["row1","row2"];
       switch(numberOfLayersOn){
           case 4:
             rowOneLayers = allLayers.splice(0,2)
@@ -144,28 +178,40 @@ class App extends Component {
           default:
             break;
       }
+      console.log("ALLLAYERS")
+      console.log(allLayers);
       rowTwoLayers = allLayers; //row two gets the remainder
-
+      newState.rows["row2"] = rowTwoLayers;
     }
 
     else {
       rowOneLayers = allLayers;
-      numberRows = [1];
+      numberRows = ["row1"];
     }
+    newState.numberRows = numberRows;
+    newState.rows["row1"] = rowOneLayers;
+    return newState;
+  }
+
+
+  render() {
+    const numberRows = this.state.numberRows;
 
     let rows = numberRows.map( (val, index) => { 
       return (
-        <Droppable droppableId={droppableId + val} key={droppableId + val}>
+        <Droppable droppableId={val} key={val} direction="horizontal">
           {provided => (
-            <List className={"List row" + val + (numberRows.length === 2 ? " two-rows" : "" )} 
+            <List className={"List " + val + (numberRows.length === 2 ? " two-rows" : "" )} 
                   provided={provided} 
                   innerRef={provided.innerRef}>
 
-              <MapView layers={val === 1 ? rowOneLayers : rowTwoLayers}
+              <MapView layers={this.state.rows[val]}
+                       row={val}
                        geocodeResult={this.state.geocode}
                        mapCenter={this.mapCenter}
                        labelLayerOn={this.state.labelLayerOn}
                        key={"mapview" + val}
+                       provided={provided}
               >
                 </MapView>
             </List>
