@@ -14,7 +14,7 @@ class Handle extends React.Component {
     const { provided, innerRef, children, display_name } = this.props;
     return (
       <div {...provided.dragHandleProps}
-         className={display_name>= 40 ? "map-title long-title" : "map-title"}>
+         className={display_name.length >= 40 ? "map-title long-title" : "map-title"}>
          {display_name}
       </div>
     );
@@ -40,77 +40,69 @@ class MapWrapper extends Component {
     this.unsyncMaps = this.unsyncMaps.bind(this);
     this.moveend = this.moveend.bind(this);
     this.onViewportChanged = this.onViewportChanged.bind(this);
+    this.passUpRef = this.passUpRef.bind(this);
   }
 
   moveend(e) {
 
   }
-
+  
   invalidateMapSizes() {
-    for (var i in this.refs){
-      this.refs[i].leafletElement.invalidateSize();
-    }
+    this.props.invalidateMapSizes();
   }
   
   componentWillMount() {
     //console.log("MapView WillMount");
   }  
 
-  componentWillUnmount() {
-    //console.log("MapView WillUnmount");
-  }
+componentWillUnmount(){
+  console.log("MapWrapper will unmount:  "+ this.props.layer.id);
+  this.passUpRef(this.props.layer.id, this.props.mapRef, true);
+
+}
 
   componentWillReceiveProps(nextProps) {
-    for (let i in nextProps.layers){
-      let id = nextProps.layers[i].id;
-      if (this.refs[id] && !nextProps.layers[i].isToggledOn){
-        this.unsyncMaps(id);
-      }
-    }
+
+    //console.log("you dumb fuck");
+
+    // for (let i in nextProps.layers){
+    //   let id = nextProps.layers[i].id;
+    //   if (this.refs[id] && !nextProps.layers[i].isToggledOn){
+    //     this.unsyncMaps(id);
+    //   }
+    // }
   }
 
   unsyncMaps(ref_id) {
-    for (let i in this.refs){
-      if (i !== ref_id && this.refs[ref_id]){
-        this.refs[ref_id].leafletElement.unsync(this.refs[i].leafletElement);
-        this.refs[i].leafletElement.unsync(this.refs[ref_id].leafletElement);
-      }
-    }
+     this.props.unsyncMaps(ref_id);
   }
 
   syncMaps() {
-    debugger;
-    for (let i in this.refs){
-      for (let j in this.refs){
-        if (i !== j){
-          if (this.refs[i] && !this.refs[i].leafletElement.isSynced(this.refs[j].leafletElement)){
-            this.refs[i].leafletElement.sync(this.refs[j].leafletElement, {syncCursor: true});           
-          }
-        }
-      }
-    }
-  }
-
-  componentWillUpdate(){
-    //console.log("MapView WillUpdate");
+    this.props.syncMaps();
   }
 
   componentDidUpdate(prevProps, prevState){
-    console.log("MapWrapper DidUpdate");
+    console.log("MapWrapper DidUpdate: " + this.props.layer.id);
 
     if (prevProps.geocodeResult !== this.props.geocodeResult) {
       let randomMap = Object.entries(this.refs)[0][1];
       let bbox = this.props.geocodeResult.geocode.bbox;
       randomMap.leafletElement.fitBounds(bbox);
     }
-    this.syncMaps();
-    this.invalidateMapSizes();
   }
 
-  componentDidMount(prevProps, prevState){
-    console.log("MapWrapper DidMount");
-    this.invalidateMapSizes();
+  passUpRef(id, ref, deleteRef=false) {
+    //console.log("MapWrapper.js: " +id);
+    this.props.passUpRef(id, ref, deleteRef);
   }
+
+
+
+  componentDidMount(prevProps, prevState){
+    console.log("MapWrapper DidMount: " + this.props.layer.id);
+    //debugger;
+    this.passUpRef(this.props.layer.id, this.props.mapRef);
+    }
 
   onViewportChanged(viewport) { 
     // The viewport got changed by the user, keep track in state
@@ -133,7 +125,6 @@ class MapWrapper extends Component {
     const placeholder = this.props.placeholder;
     const layer = this.props.layer;
     let that = this;
-    const leafletRef = React.createRef(null);
     let Layer = layer_components[layer.type];
     const { provided, innerRef } = this.props;
   
@@ -146,12 +137,12 @@ class MapWrapper extends Component {
                       >
 
                     <Handle provided={provided} display_name={layer.display_name} />
-                    <Map ref={leafletRef} 
+                    <Map ref={this.props.mapRef}
                      minZoom={11}
                      maxZoom={layer.maxZoom}
                      onViewportChanged={that.onViewportChanged}
                      className ={'map'+ this.props.numberLayers + ' p' + this.props.layerIndex + " " + (this.props.isDragging ? "dragging": "nope")}  
-                    
+                     id={layer.id}
                      key={layer.id} 
                      viewport={that.viewport}
                     >
@@ -175,4 +166,5 @@ class MapWrapper extends Component {
 }  
 
 
-export default MapWrapper;
+export default React.forwardRef((props, ref) => <MapWrapper mapRef={ref} {...props} />);
+

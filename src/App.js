@@ -14,7 +14,7 @@ Array.prototype.move = function(from, to) {
     this.splice(to, 0, this.splice(from, 1)[0]);
 };
 
-class List extends React.Component {
+class Row extends React.Component {
   render() {
     const { provided, innerRef, children } = this.props;
     return (
@@ -37,22 +37,100 @@ class App extends Component {
     this.toggleLabels = this.toggleLabels.bind(this);
     this.mapCenter = this.mapCenter.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.setMapRef = this.setMapRef.bind(this);
+    this.syncMaps = this.syncMaps.bind(this);
+    this.unsyncMaps = this.unsyncMaps.bind(this);
+    this.invalidateMapSizes = this.invalidateMapSizes.bind(this);
     this.state = {"layers":[],
+                  "mapRefs": {},
                   "rows":{ "row1":[], "row2":[]},
                   "numberRows": ["row1"], //default to include one row so the no-maps message displays 
                   "numberOfLayersOn": 0, 
-                  "geocodeResult": {}, 
+                  "geocodeResult": {},
                   "labelLayerOn": true};
 
     //alert alert hack ahead
     window.vex = Vex;
     window.vex.registerPlugin(plugin);
     window.vex.defaultOptions.className = 'vex-theme-os';
+        this.passUpRef = this.passUpRef.bind(this);
+  }
+
+
+  passUpRef(id, ref, deleteRef) {
+    let mapRefs = {"mapRefs": this.state.mapRefs};
+
+    if (deleteRef) {
+      this.unsyncMaps(id);
+      console.log("map unmounted: " + id);
+      delete(mapRefs.mapRefs[id]);
+      this.setState(mapRefs);
+    }
+    else {
+      console.log("map mounted: " + id);
+      this.syncMaps();
+    }
+    this.invalidateMapSizes();
+  }
+
+
+
+  setMapRef(DOMNode) {
+    //debugger;
+    console.log("setup mapRef");
+    let mapRefs = {"mapRefs": this.state.mapRefs};
+
+    //if (DOMNode && DOMNode.container !== null) {
+    if (DOMNode) {
+      mapRefs.mapRefs[DOMNode.container.id] = DOMNode;
+      this.setState(mapRefs);
+    }
+  }
+
+  invalidateMapSizes() {
+    // console.log("invalidateMapSizes");
+
+    let mapRefs = this.state.mapRefs;
+    for (let i in mapRefs){ 
+      //console.log("invalidate "+ i)
+      //console.log(mapRefs[i]);
+      mapRefs[i].leafletElement.invalidateSize();
+    }
+  }
+
+  unsyncMaps(ref_id) {
+    console.log("UNsync maps");
+    let mapRefs = this.state.mapRefs;
+    for (let i in mapRefs){
+      if (i !== ref_id && mapRefs[ref_id]){
+          mapRefs[ref_id].leafletElement.unsync(mapRefs[i].leafletElement);
+          mapRefs[i].leafletElement.unsync(mapRefs[ref_id].leafletElement);
+      }
+    }
+  }
+
+  syncMaps() {
+
+    // console.log("sync maps");
+    let mapRefs = this.state.mapRefs;
+    //debugger;
+    console.log("Number of mapRefs: " + Object.values(mapRefs).length);
+    for (let i in mapRefs){
+      for (let j in mapRefs){
+         //debugger;
+         if (i !== j && !mapRefs[i].leafletElement.isSynced(mapRefs[j].leafletElement)){
+
+           console.log("sync " + i + " with " + j);
+           mapRefs[i].leafletElement.sync(mapRefs[j].leafletElement, {syncCursor: true});           
+          }
+      }
+   }
   }
 
   transmitGeocode(geocode) {
     this.setState({"geocode": geocode});
   }
+
 
   toggleFullscreen() {
     let current_val = this.state.isFullscreenEnabled;
@@ -107,6 +185,8 @@ class App extends Component {
     let newState = this.splitLayersIntoRows(allTurnedOnLayers, this.state.numberOfLayersOn);
 
     this.setState({...newState, "layers": allLayers});
+    //this.invalidateMapSizes();
+
   }
 
   findWithAttr(array, attr, value) {
@@ -117,8 +197,11 @@ class App extends Component {
     }
     return -1;
   }
+
+
   componentDidUpdate(prevProps, prevState){
-    //console.log("hi");
+    //console.log("App componentDidUpdate");
+    //this.invalidateMapSizes();
   }
 
   handleItemClick(data) {
@@ -196,12 +279,11 @@ class App extends Component {
 
   render() {
     const numberRows = this.state.numberRows;
-
     let rows = numberRows.map( (val, index) => { 
       return (
         <Droppable droppableId={val} key={val} direction="horizontal">
           {provided => (
-            <List className={"List " + val + (numberRows.length === 2 ? " two-rows" : "" )} 
+            <Row className={"Row " + val + (numberRows.length === 2 ? " two-rows" : "" )} 
                   provided={provided} 
                   innerRef={provided.innerRef}>
 
@@ -212,9 +294,14 @@ class App extends Component {
                        labelLayerOn={this.state.labelLayerOn}
                        key={"mapview" + val}
                        provided={provided}
+                       passUpRef={this.passUpRef}
+                       syncMaps={this.syncMaps}
+                       unsyncMaps={this.unsyncMaps}
+                       invalidateMapSizes={this.invalidateMapSizes}
+                       mapRef={this.setMapRef}
               >
                 </MapView>
-            </List>
+            </Row>
           )}  
         </Droppable>
       )

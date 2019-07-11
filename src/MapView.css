@@ -50,7 +50,7 @@
 	top: 10px;
 }
 
-.List {
+.Row {
 	height:100%;
 	width:100%;
 }
@@ -181,23 +181,26 @@ div[data-react-beautiful-dnd-placeholder='0'] {
 	}*/
 }
 
-.List {
+.Row {
 	display:flex;
 
 }
 
-.List > div {
+.Row > div {
 	flex: 1;
 	position:relative;
 	flex-basis: 200px;
 }
+
 .row1 .leaflet-container, .row2 .leaflet-container, div[data-react-beautiful-dnd-placeholder='0']  {
 	height:100%;
 }
+
 div[data-react-beautiful-dnd-placeholder='0'] {
 	flex-grow: 1 !important; /*hmmm */
 	flex-shrink: 1 !important;
 }
+
 .row1 {
 	height:100%;
 }

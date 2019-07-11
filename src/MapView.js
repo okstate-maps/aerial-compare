@@ -6,6 +6,7 @@ import EsriTiledMapLayer from './EsriTiledMapLayer';
 import MapWrapper from './MapWrapper';
 import Config from './Config';
 import 'leaflet.sync';
+
 import './MapView.css';
 
 //const { Map, TileLayer, Marker, Popup } = ReactLeaflet
@@ -23,38 +24,27 @@ class MapView extends Component {
       center: [36.1156, -97.0584],
       zoom: 13
     }
+        this.passUpRef = this.passUpRef.bind(this);
     this.syncMaps = this.syncMaps.bind(this);
     this.unsyncMaps = this.unsyncMaps.bind(this);
     this.invalidateMapSizes = this.invalidateMapSizes.bind(this);
   }
 
-
-  invalidateMapSizes() {
-    for (var i in this.refs){
-      this.refs[i].leafletElement.invalidateSize();
-    }
+passUpRef(id, ref, deleteRef) {
+  //console.log("MapView.js: " +id);
+  this.props.passUpRef(id, ref, deleteRef);
+ }
+ 
+ invalidateMapSizes() {
+    this.props.invalidateMapSizes();
   }
 
- unsyncMaps(ref_id) {
-    for (let i in this.refs){
-      if (i !== ref_id && this.refs[ref_id]){
-        this.refs[ref_id].leafletElement.unsync(this.refs[i].leafletElement);
-        this.refs[i].leafletElement.unsync(this.refs[ref_id].leafletElement);
-      }
-    }
+  unsyncMaps(ref_id) {
+     this.props.unsyncMaps(ref_id);
   }
 
   syncMaps() {
-    debugger;
-    for (let i in this.refs){
-      for (let j in this.refs){
-        if (i !== j){
-          if (this.refs[i] && !this.refs[i].leafletElement.isSynced(this.refs[j].leafletElement)){
-            this.refs[i].leafletElement.sync(this.refs[j].leafletElement, {syncCursor: true});           
-          }
-        }
-      }
-    }
+    this.props.syncMaps();
   }
   
   render() {
@@ -110,7 +100,11 @@ class MapView extends Component {
                     layerIndex={index}
                     provided={provided}
                     isDragging={snapshot.isDragging}
-
+                    passUpRef={this.passUpRef}
+                    mapRef={this.props.mapRef}
+                    syncMaps={this.syncMaps}
+                    unsyncMaps={this.unsyncMaps}
+                    invalidateMapSizes={this.invalidateMapSizes}
                     />
               )}
 
@@ -124,4 +118,4 @@ class MapView extends Component {
   }
 }
 
-export default MapView;
+export default React.forwardRef((props, ref) => <MapView mapRef={ref} {...props} />);
