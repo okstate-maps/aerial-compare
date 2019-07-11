@@ -131,7 +131,6 @@ class App extends Component {
     this.setState({"geocode": geocode});
   }
 
-
   toggleFullscreen() {
     let current_val = this.state.isFullscreenEnabled;
     this.setState({isFullscreenEnabled: !current_val});
@@ -153,32 +152,23 @@ class App extends Component {
   onDragEnd(draggedLayer) {
     console.log(draggedLayer);
     let allLayers = cloneDeep(this.state.layers);
-    let newStateLayers = cloneDeep(this.state.rows);
     
-    let sourceRow = draggedLayer.source.droppableId;
     let destRow = draggedLayer.destination.droppableId;
     
     let layerId = draggedLayer.draggableId.replace("draggable-","");
 
     let currentLayerIndex = this.findWithAttr(this.state.layers, "id", layerId);
     let destinationIndex;
+    
     if (destRow === "row2") {
       destinationIndex = this.state.rows["row1"].length + draggedLayer.destination.index;
     }
-
     else {
       destinationIndex = draggedLayer.destination.index;
     }
 
     console.log("Current Index: " + currentLayerIndex);
     console.log("Destination Index: " + destinationIndex);
-
-/*
-    if (destRow !== sourceRow) {
-      console.log("Dragged layer changed row! wowweee");
-      newStateLayers[destRow] = [...newStateLayers[destRow], newStateLayers[sourceRow][currentLayerIndex]];
-      newStateLayers[sourceRow].splice(currentLayerIndex, 1);
-    }*/
 
     allLayers.move(currentLayerIndex, destinationIndex);
     let allTurnedOnLayers = cloneDeep(allLayers.filter(i => i.isToggledOn));
@@ -202,29 +192,38 @@ class App extends Component {
   componentDidUpdate(prevProps, prevState){
     //console.log("App componentDidUpdate");
     //this.invalidateMapSizes();
+
+    if (prevState.geocode !== this.state.geocode) {
+      let randomMap = Object.entries(this.state.mapRefs)[0][1];
+      let bbox = this.state.geocode.geocode.bbox;
+      randomMap.leafletElement.fitBounds(bbox);
+    }
+
   }
 
   handleItemClick(data) {
     let found = false;
-    let newStateLayers = cloneDeep(this.state.layers);
-    
+    let foundIdx;
+    let newStateLayers = cloneDeep(this.state.layers);  
 
     newStateLayers.forEach((lyr, index) => {
       if (data.id === lyr.id){
-        found = [true,index];
+        found = true;
+        foundIdx = index;
       }
     });
 
     if (!found){
-        newStateLayers = newStateLayers.concat([data]);
+
+      newStateLayers = newStateLayers.concat([data]);
     }
 
     else {
 
-      newStateLayers[found[1]].isToggledOn = !this.state.layers[found[1]].isToggledOn;
+      newStateLayers[foundIdx].isToggledOn = !this.state.layers[foundIdx].isToggledOn;
 
       //rearrange the layers array so display order matches clicked order
-      newStateLayers.move(found[1], newStateLayers.length - 1);
+      newStateLayers.move(foundIdx, newStateLayers.length - 1);
       
     }
 

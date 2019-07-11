@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Map, TileLayer, WMSTileLayer} from 'react-leaflet';
 //import Control from 'react-leaflet-control';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import EsriTiledMapLayer from './EsriTiledMapLayer';
 import Config from './Config';
 import 'leaflet.sync';
@@ -11,7 +10,7 @@ import './MapView.css';
 
 class Handle extends React.Component {
   render() {
-    const { provided, innerRef, children, display_name } = this.props;
+    const { provided, display_name } = this.props;
     return (
       <div {...provided.dragHandleProps}
          className={display_name.length >= 40 ? "map-title long-title" : "map-title"}>
@@ -81,15 +80,9 @@ componentWillUnmount(){
     this.props.syncMaps();
   }
 
-  componentDidUpdate(prevProps, prevState){
-    console.log("MapWrapper DidUpdate: " + this.props.layer.id);
-
-    if (prevProps.geocodeResult !== this.props.geocodeResult) {
-      let randomMap = Object.entries(this.refs)[0][1];
-      let bbox = this.props.geocodeResult.geocode.bbox;
-      randomMap.leafletElement.fitBounds(bbox);
-    }
-  }
+  //componentDidUpdate(prevProps, prevState){
+  
+  //}
 
   passUpRef(id, ref, deleteRef=false) {
     //console.log("MapWrapper.js: " +id);
@@ -122,7 +115,6 @@ componentWillUnmount(){
       "TileLayer": TileLayer
     }
 
-    const placeholder = this.props.placeholder;
     const layer = this.props.layer;
     let that = this;
     let Layer = layer_components[layer.type];

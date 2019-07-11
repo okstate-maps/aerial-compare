@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import {Map, TileLayer, WMSTileLayer} from 'react-leaflet';
-import Control from 'react-leaflet-control';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import EsriTiledMapLayer from './EsriTiledMapLayer';
+import { Draggable } from 'react-beautiful-dnd';
 import MapWrapper from './MapWrapper';
 import Config from './Config';
 import 'leaflet.sync';
@@ -18,42 +15,32 @@ class MapView extends Component {
   constructor(props, context) {
     super(props)
     this.mapboxToken = Config.mapboxToken;
-    this.labelLayerUrl = Config.labelLayerUrl + this.mapboxToken;
-
-    const DEFAULT_VIEWPORT = {
-      center: [36.1156, -97.0584],
-      zoom: 13
-    }
-        this.passUpRef = this.passUpRef.bind(this);
+    this.passUpRef = this.passUpRef.bind(this);
     this.syncMaps = this.syncMaps.bind(this);
     this.unsyncMaps = this.unsyncMaps.bind(this);
     this.invalidateMapSizes = this.invalidateMapSizes.bind(this);
   }
 
-passUpRef(id, ref, deleteRef) {
-  //console.log("MapView.js: " +id);
-  this.props.passUpRef(id, ref, deleteRef);
- }
+  passUpRef(id, ref, deleteRef) {
+    this.props.passUpRef(id, ref, deleteRef);
+  }
  
- invalidateMapSizes() {
+  invalidateMapSizes() {
     this.props.invalidateMapSizes();
   }
 
   unsyncMaps(ref_id) {
-     this.props.unsyncMaps(ref_id);
+    this.props.unsyncMaps(ref_id);
   }
 
   syncMaps() {
     this.props.syncMaps();
   }
-  
+
   render() {
 
     // Use ids from layers array to create list of urls
-    const row = this.props.row;
     const layers = this.props.layers;
-    const that = this;
-    const labelLayerUrl = this.labelLayerUrl;
     let filtered_layers = layers.filter(lyr => {
       if (lyr.isToggledOn){
         return true;
@@ -83,8 +70,6 @@ passUpRef(id, ref, deleteRef) {
       
       let maps = filtered_layers.map( (layer, index) => {
           
-          const inputRef = React.createRef(null);
-
           const draggableId = "draggable-"+ layer.id; 
 
           return (
@@ -104,6 +89,7 @@ passUpRef(id, ref, deleteRef) {
                     mapRef={this.props.mapRef}
                     syncMaps={this.syncMaps}
                     unsyncMaps={this.unsyncMaps}
+                    labelLayerOn={this.props.labelLayerOn}
                     invalidateMapSizes={this.invalidateMapSizes}
                     />
               )}

@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import {GridLayer, withLeaflet} from 'react-leaflet';
 import {tiledMapLayer} from 'esri-leaflet';
