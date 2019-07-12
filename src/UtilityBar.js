@@ -17,7 +17,7 @@ class UtilityBar extends Component {
   }
  
   componentDidMount(){
-    console.log("UtilityBar mounted");
+    //console.log("UtilityBar mounted");
    }
 
   transmitGeocode(geocode){
