@@ -123,6 +123,15 @@ module.exports = [
         "thumbnail_file": "thumb_osu1986_2.JPG",
         "maxZoom": 20
       },
+      {
+        "sortVal": 1991,
+        "type": "EsriTiledMapLayer",
+        "id": "stw1991",
+        "display_name": "1991",
+        "url": ARCGIS_BASE_TILE_PATH + "/stw1991/MapServer",
+        "thumbnail_file": "thumb_stw1991.JPG",
+        "maxZoom": 21
+      },
 
       {
         "sortVal": 1995,

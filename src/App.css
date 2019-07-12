@@ -111,14 +111,11 @@ table {
   }
 }
 
-#maps{
+#maps {
   flex-grow: 1;
   position: relative;
 }
 
-#maps > div {
-  position: absolute;
-}
 header, #maps, footer {
   flex-shrink: 0;
 }

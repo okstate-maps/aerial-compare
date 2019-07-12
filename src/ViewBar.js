@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { cloneDeep } from 'lodash';
 //import sortOn from 'sort-on';
 //import FlipMove from 'react-flip-move';
 import Item from './Item';
@@ -22,15 +23,14 @@ class ViewBar extends Component {
 
   handleItemClick(data) {
     let id = data.id;
-    let newState = JSON.parse(JSON.stringify(this.state));
+    let newState = cloneDeep(this.state);
+
     newState.layers.forEach( (lyr,index) => {
       if (lyr.id === id) {
         newState.layers[index] = data;
       }
     });
 
-    //sorting is not working crossbrowser atm
-    //newState.layers = this.sortItems(newState.layers);
     this.setState(newState);   
     this.props.onItemClick(data);
   }
@@ -145,7 +145,8 @@ class ViewBar extends Component {
     return (
       <footer className='ViewBar-container bottom'>
         <ScrollButton direction="left" onClick={this.handleScrollButtonClick}/>
-         <div onWheel={this.onWheel} className='flip-move' id="viewbarItems">
+
+         <div onWheel={this.onWheel} onScroll={this.onScroll} scrollleft={this.state.scrollLeft} className='flip-move' id="viewbarItems">
            {items.map(item => <Item 
                 numberOfLayersOn={this.props.numberOfLayersOn}
                 key={item.id} 
@@ -160,6 +161,7 @@ class ViewBar extends Component {
                 onItemClick={this.handleItemClick}
 
               />)}
+
            <AddLayerItem numberOfLayersOn={this.props.numberOfLayersOn} addLayer={this.addLayer} />
           </div>
         <ScrollButton direction="right" onClick={this.handleScrollButtonClick}/>

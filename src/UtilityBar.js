@@ -17,7 +17,7 @@ class UtilityBar extends Component {
   }
  
   componentDidMount(){
-    console.log("UtilityBar mounted");
+    //console.log("UtilityBar mounted");
    }
 
   transmitGeocode(geocode){
@@ -35,7 +35,7 @@ class UtilityBar extends Component {
                  onChange={this.props.toggleLabels}>
             
           </input>
-          <label htmlFor="labelsCheckbox"> Map Labels</label>
+          <label htmlFor="labelsCheckbox">Map&nbsp;Labels</label>
         </div>
         <Geocoder transmitGeocode={this.transmitGeocode} />
         <div>

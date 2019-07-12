@@ -12,7 +12,7 @@
 	height: none;
 }
 .Geocoder .leaflet-control-geocoder {
-	border-radius: 5px 5px 5px 0;
+	border-radius: 5px 5px 0 0;
 	max-width: 350px;
 	min-width: 80px;
 	width: 100%;
@@ -40,6 +40,7 @@
 	width: calc(100% - 30px);
 }
 
+.Geocoder .leaflet-control-geocoder-alternatives, 
 .Geocoder .leaflet-control-geocoder-form-no-error,
 .Geocoder .leaflet-control-geocoder-form input {
 	font-size: 85%;
@@ -53,4 +54,8 @@
 
 .Geocoder .leaflet-control-geocoder-icon {
 	vertical-align: middle;
+}
+
+.leaflet-control-geocoder-alternatives {
+	width: 100%;
 }

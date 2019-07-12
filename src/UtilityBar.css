@@ -10,7 +10,7 @@
 		so for now stick to the .Ut > div margin stuff below */
 }
 
-.UtilityBar * {
+.UtilityBar > * {
   font-family: 'Montserrat', 'Open Sans', sans-serif;
   font-weight: 300;
   font-size: 1.1em;
@@ -44,7 +44,15 @@
 	padding: 5px 15px;
 }
 
+.UtilityBar input[type='checkbox'] {
+	vertical-align: middle;
+}
 
 .UtilityBar label {
  	white-space: nowrap;
+ 	user-select: none;
+}
+
+.UtilityBar label:active {
+ 	font-weight: 500;
 }
