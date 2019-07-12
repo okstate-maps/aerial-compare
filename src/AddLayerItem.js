@@ -77,14 +77,11 @@ class AddLayerItem extends Item {
 
   render() {
     return (
-      <div className='add-layer item' 
+      <button className='add-layer item' 
           onClick={this.onClick} 
           id='add-layer'>
-        <div className="label">
-          <button><FontAwesomeIcon icon='plus' size="6x"/></button>
-        </div>
-
-      </div>
+          <FontAwesomeIcon icon='plus' size="6x"/>
+      </button>
     );
   }
 }
