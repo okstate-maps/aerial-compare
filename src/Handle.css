@@ -1,0 +1,21 @@
+.Handle-drag-icon {
+	font-size: 0.6em;
+	vertical-align: baseline;
+	filter: drop-shadow(0px 0px 1px black);
+}
+
+.map-title {
+	color: #FF6600;
+	font-family: 'Montserrat', 'Open Sans', sans-serif;
+	text-shadow: black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em;
+	max-width: 150px;
+	-webkit-user-select: none;  
+  	-moz-user-select: none;     
+  	-ms-user-select: none;      
+  	user-select: none;          
+	line-height: 1.1em;
+	position: absolute;
+	right: 10px;
+	z-index: 1000;
+	top: 10px;
+}

@@ -34,21 +34,6 @@
   width: 100vw;
 }
 
-.map-title {
-	color: #FF6600;
-	font-family: 'Montserrat', 'Open Sans', sans-serif;
-	text-shadow: black 0 0 0.1em, black 0 0 0.1em, black 0 0 0.1em;
-	max-width: 150px;
-	-webkit-user-select: none;  
-  	-moz-user-select: none;     
-  	-ms-user-select: none;      
-  	user-select: none;          
-	line-height: 1.1em;
-	position: absolute;
-	right: 10px;
-	z-index: 10000;
-	top: 10px;
-}
 
 .Row {
 	height:100%;
@@ -190,7 +175,17 @@ div[data-react-beautiful-dnd-placeholder='0'] {
 	flex: 1;
 	position:relative;
 	flex-basis: 200px;
+	margin: 3px;
 }
+
+.Row > div:first-child {
+	margin-left: 0;
+}
+
+.Row > div:last-child {
+	margin-right: 0;
+}
+
 
 .row1 .leaflet-container, .row2 .leaflet-container, div[data-react-beautiful-dnd-placeholder='0']  {
 	height:100%;

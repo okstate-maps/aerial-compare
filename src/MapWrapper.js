@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import {Map, TileLayer, WMSTileLayer} from 'react-leaflet';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGripVertical } from '@fortawesome/free-solid-svg-icons';
 //import Control from 'react-leaflet-control';
 import EsriTiledMapLayer from './EsriTiledMapLayer';
 import Config from './Config';
 import 'leaflet.sync';
-import './MapView.css';
+import './Handle.css';
+
+library.add(faGripVertical);
 
 //const { Map, TileLayer, Marker, Popup } = ReactLeaflet
 
@@ -12,9 +17,11 @@ class Handle extends React.Component {
   render() {
     const { provided, display_name } = this.props;
     return (
-      <div {...provided.dragHandleProps}
-         className={display_name.length >= 40 ? "map-title long-title" : "map-title"}>
-         {display_name}
+      <div className={display_name.length >= 40 ? "map-title long-title" : "map-title"}>
+         <span {...provided.dragHandleProps}>
+          <FontAwesomeIcon className="Handle-drag-icon" icon="grip-vertical" size="1x"/>
+        </span>
+         &nbsp;{display_name}
       </div>
     );
   }
@@ -40,6 +47,10 @@ class MapWrapper extends Component {
     this.moveend = this.moveend.bind(this);
     this.onViewportChanged = this.onViewportChanged.bind(this);
     this.passUpRef = this.passUpRef.bind(this);
+    this.onResize = this.onResize.bind(this);
+  }
+
+  onResize(e) {
   }
 
   moveend(e) {
@@ -55,15 +66,15 @@ class MapWrapper extends Component {
   }  
 
 componentWillUnmount(){
-  console.log("MapWrapper will unmount:  "+ this.props.layer.id);
+  //console.log("MapWrapper will unmount:  "+ this.props.layer.id);
   this.passUpRef(this.props.layer.id, this.props.mapRef, true);
 
 }
 
   componentWillReceiveProps(nextProps) {
 
-    //console.log("you dumb fuck");
-
+    //console.log("componentWillReceiveProps");
+    //this.invalidateMapSizes();
     // for (let i in nextProps.layers){
     //   let id = nextProps.layers[i].id;
     //   if (this.refs[id] && !nextProps.layers[i].isToggledOn){
@@ -89,10 +100,8 @@ componentWillUnmount(){
     this.props.passUpRef(id, ref, deleteRef);
   }
 
-
-
   componentDidMount(prevProps, prevState){
-    console.log("MapWrapper DidMount: " + this.props.layer.id);
+    //console.log("MapWrapper DidMount: " + this.props.layer.id);
     //debugger;
     this.passUpRef(this.props.layer.id, this.props.mapRef);
     }
@@ -131,6 +140,7 @@ componentWillUnmount(){
                     <Handle provided={provided} display_name={layer.display_name} />
                     <Map ref={this.props.mapRef}
                      minZoom={11}
+                     onResize={this.onResize}
                      maxZoom={layer.maxZoom}
                      onViewportChanged={that.onViewportChanged}
                      className ={'map'+ this.props.numberLayers + ' p' + this.props.layerIndex + " " + (this.props.isDragging ? "dragging": "nope")}  

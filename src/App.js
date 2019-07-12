@@ -10,9 +10,6 @@ import ViewBar from './ViewBar';
 import './App.css';
 
 
-Array.prototype.move = function(from, to) {
-    this.splice(to, 0, this.splice(from, 1)[0]);
-};
 
 class Row extends React.Component {
   render() {
@@ -41,6 +38,7 @@ class App extends Component {
     this.syncMaps = this.syncMaps.bind(this);
     this.unsyncMaps = this.unsyncMaps.bind(this);
     this.invalidateMapSizes = this.invalidateMapSizes.bind(this);
+    this.moveWithinArray = this.moveWithinArray.bind(this);
     this.state = {"layers":[],
                   "mapRefs": {},
                   "rows":{ "row1":[], "row2":[]},
@@ -62,22 +60,25 @@ class App extends Component {
 
     if (deleteRef) {
       this.unsyncMaps(id);
-      console.log("map unmounted: " + id);
+      //console.log("map unmounted: " + id);
       delete(mapRefs.mapRefs[id]);
       this.setState(mapRefs);
     }
     else {
-      console.log("map mounted: " + id);
+      //console.log("map mounted: " + id);
       this.syncMaps();
     }
     this.invalidateMapSizes();
   }
 
+  moveWithinArray(array, from, to) {
+    array.splice(to, 0, array.splice(from, 1)[0]);
+  }
 
 
   setMapRef(DOMNode) {
     //debugger;
-    console.log("setup mapRef");
+   // console.log("setup mapRef");
     let mapRefs = {"mapRefs": this.state.mapRefs};
 
     //if (DOMNode && DOMNode.container !== null) {
@@ -88,7 +89,7 @@ class App extends Component {
   }
 
   invalidateMapSizes() {
-    // console.log("invalidateMapSizes");
+    //console.log("invalidateMapSizes");
 
     let mapRefs = this.state.mapRefs;
     for (let i in mapRefs){ 
@@ -99,7 +100,7 @@ class App extends Component {
   }
 
   unsyncMaps(ref_id) {
-    console.log("UNsync maps");
+    //console.log("UNsync maps");
     let mapRefs = this.state.mapRefs;
     for (let i in mapRefs){
       if (i !== ref_id && mapRefs[ref_id]){
@@ -114,13 +115,13 @@ class App extends Component {
     // console.log("sync maps");
     let mapRefs = this.state.mapRefs;
     //debugger;
-    console.log("Number of mapRefs: " + Object.values(mapRefs).length);
+    //console.log("Number of mapRefs: " + Object.values(mapRefs).length);
     for (let i in mapRefs){
       for (let j in mapRefs){
          //debugger;
          if (i !== j && !mapRefs[i].leafletElement.isSynced(mapRefs[j].leafletElement)){
 
-           console.log("sync " + i + " with " + j);
+           //console.log("sync " + i + " with " + j);
            mapRefs[i].leafletElement.sync(mapRefs[j].leafletElement, {syncCursor: true});           
           }
       }
@@ -137,7 +138,7 @@ class App extends Component {
   }
 
   toggleLabels() {
-    console.log("toggleLabels");
+    //console.log("toggleLabels");
     let curr = this.state.labelLayerOn;
     this.setState({"labelLayerOn": !curr});
   }
@@ -150,7 +151,7 @@ class App extends Component {
 
 
   onDragEnd(draggedLayer) {
-    console.log(draggedLayer);
+    //console.log(draggedLayer);
     let allLayers = cloneDeep(this.state.layers);
     
     let destRow = draggedLayer.destination.droppableId;
@@ -170,12 +171,15 @@ class App extends Component {
     console.log("Current Index: " + currentLayerIndex);
     console.log("Destination Index: " + destinationIndex);
 
-    allLayers.move(currentLayerIndex, destinationIndex);
-    let allTurnedOnLayers = cloneDeep(allLayers.filter(i => i.isToggledOn));
+    this.moveWithinArray(allLayers, currentLayerIndex, destinationIndex);
+    let allTurnedOnLayers = allLayers.filter(i => i.isToggledOn);
     let newState = this.splitLayersIntoRows(allTurnedOnLayers, this.state.numberOfLayersOn);
 
-    this.setState({...newState, "layers": allLayers});
-    //this.invalidateMapSizes();
+    this.setState(
+      {...newState, "layers": allLayers}, 
+      () => {setTimeout(this.invalidateMapSizes, 400)} 
+    );
+
 
   }
 
@@ -191,7 +195,12 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState){
     //console.log("App componentDidUpdate");
-    //this.invalidateMapSizes();
+    
+    if (prevState.layers.filter(i => i.isToggledOn).length !== 
+         this.state.layers.filter(i => i.isToggledOn).length) {
+
+      this.invalidateMapSizes();
+    }
 
     if (prevState.geocode !== this.state.geocode) {
       let randomMap = Object.entries(this.state.mapRefs)[0][1];
@@ -223,7 +232,7 @@ class App extends Component {
       newStateLayers[foundIdx].isToggledOn = !this.state.layers[foundIdx].isToggledOn;
 
       //rearrange the layers array so display order matches clicked order
-      newStateLayers.move(foundIdx, newStateLayers.length - 1);
+      this.moveWithinArray(newStateLayers, foundIdx, newStateLayers.length - 1);
       
     }
 
@@ -260,8 +269,8 @@ class App extends Component {
           default:
             break;
       }
-      console.log("ALLLAYERS")
-      console.log(allLayers);
+      //console.log("ALLLAYERS")
+      //console.log(allLayers);
       rowTwoLayers = allLayers; //row two gets the remainder
       newState.rows["row2"] = rowTwoLayers;
     }
