@@ -17,8 +17,8 @@ class Handle extends React.Component {
   render() {
     const { provided, display_name } = this.props;
     return (
-      <div className={display_name.length >= 40 ? "map-title long-title" : "map-title"}>
-         <span {...provided.dragHandleProps}>
+      <div className={display_name.length >= 40 ? "Handle map-title long-title" : "Handle map-title"}>
+         <span className="Handle-span" {...provided.dragHandleProps}>
           <FontAwesomeIcon className="Handle-drag-icon" icon="grip-vertical" size="1x"/>
         </span>
          &nbsp;{display_name}

@@ -7,21 +7,11 @@ import { cloneDeep } from 'lodash';
 import UtilityBar from './UtilityBar';
 import MapView from './MapView';
 import ViewBar from './ViewBar';
+import MapsContainer from './MapsContainer';
+import RowContainer from './RowContainer';
 import './App.css';
 
 
-
-class Row extends React.Component {
-  render() {
-    const { provided, innerRef, children } = this.props;
-    return (
-      <div className={this.props.className} {...provided.droppableProps} ref={innerRef}>
-        {children}
-        {provided.placeholder}
-      </div>
-    );
-  }
-}
 
 class App extends Component {
 
@@ -38,6 +28,8 @@ class App extends Component {
     this.syncMaps = this.syncMaps.bind(this);
     this.unsyncMaps = this.unsyncMaps.bind(this);
     this.invalidateMapSizes = this.invalidateMapSizes.bind(this);
+    this.calculateDisplayIndexes = this.calculateDisplayIndexes.bind(this);
+    this.calculateRowLayers = this.calculateRowLayers.bind(this);
     this.moveWithinArray = this.moveWithinArray.bind(this);
     this.state = {"layers":[],
                   "mapRefs": {},
@@ -154,14 +146,20 @@ class App extends Component {
       return;
     }
 
-    //console.log(draggedLayer);
     let allLayers = cloneDeep(this.state.layers);
-    
+    let currentRow = draggedLayer.source.droppableId;  
     let destRow = draggedLayer.destination.droppableId;
     
     let layerId = draggedLayer.draggableId.replace("draggable-","");
+    
+    let currentLayerIndex;
+    if (currentRow === "row2") {
+      currentLayerIndex = this.state.rows["row1"].length + draggedLayer.source.index;
+    }
+    else {
+      currentLayerIndex = draggedLayer.source.index;
+    }
 
-    let currentLayerIndex = this.findWithAttr(this.state.layers, "id", layerId);
     let destinationIndex;
     
     if (destRow === "row2") {
@@ -174,8 +172,10 @@ class App extends Component {
     console.log("Current Index: " + currentLayerIndex);
     console.log("Destination Index: " + destinationIndex);
 
-    this.moveWithinArray(allLayers, currentLayerIndex, destinationIndex);
     let allTurnedOnLayers = allLayers.filter(i => i.isToggledOn);
+    console.log(allTurnedOnLayers[0].id);
+    this.moveWithinArray(allTurnedOnLayers, currentLayerIndex, destinationIndex);
+    console.log(allTurnedOnLayers[0].id);
     let newState = this.splitLayersIntoRows(allTurnedOnLayers, this.state.numberOfLayersOn);
 
     this.setState(
@@ -239,21 +239,72 @@ class App extends Component {
       
     }
 
+    let disp = this.calculateDisplayIndexes(cloneDeep(newStateLayers));
+
+    let layerFun = this.calculateRowLayers(disp);
+
     let newNumberOfLayersOn = newStateLayers.filter(i => i.isToggledOn).length;
-    let rowState = this.splitLayersIntoRows(cloneDeep(newStateLayers.filter(i => i.isToggledOn)), newNumberOfLayersOn);
+    let rowState = this.splitLayersIntoRows(
+      cloneDeep(newStateLayers.filter(i => i.isToggledOn)), 
+      newNumberOfLayersOn
+    );
     let newState = {...rowState, "layers": newStateLayers,
                   "numberOfLayersOn": newNumberOfLayersOn};
 
     this.setState(newState);
   }
 
- 
+
+  calculateDisplayIndexes(layers) {
+    var visibleIndex = 0;
+    let newLayers = layers.map(function(lyr){
+      if (lyr.isToggledOn) {
+        lyr.visibleIndex = visibleIndex;
+        visibleIndex ++;
+      }
+      return lyr;
+    });
+    return newLayers;
+  }
+  
+calculateRowLayers(layers) {
+  let numberOfLayersOn = layers.filter(i => i.isToggledOn).length;
+  let visibleLayers = layers.filter(i => i.isToggledOn);
+  visibleLayers.sort(function(a,b){
+    return a.visibleIndex - b.visibleIndex;
+  })
+
+  switch(numberOfLayersOn){
+    case 1:
+    case 2:
+    case 3:
+      visibleLayers.forEach(i => i.row = "row1");
+    case 4:
+      visibleLayers.slice(0,2).forEach(i => i.row = "row1");
+      visibleLayers.slice(2).forEach(i => i.row = "row2");
+    case 5:
+    case 6:
+      visibleLayers.slice(0,3).forEach(i => i.row = "row1");
+      visibleLayers.slice(3).forEach(i => i.row = "row2");
+      break;
+    case 7:
+    case 8:
+      visibleLayers.slice(0,4).forEach(i => i.row = "row1");
+      visibleLayers.slice(4).forEach(i => i.row = "row2");
+      break;
+    default:
+      break;
+  }
+  return layers;
+}
+
  splitLayersIntoRows(layers, numberOfLayersOn) {
     let numberRows;
     let newState = {rows: {}};
     let rowOneLayers;
     let rowTwoLayers;
     let allLayers = layers;
+
     
     if (numberOfLayersOn >= 4){
       numberRows = ["row1","row2"];
@@ -294,7 +345,7 @@ class App extends Component {
       return (
         <Droppable droppableId={val} key={val} direction="horizontal">
           {provided => (
-            <Row className={"Row " + val + (numberRows.length === 2 ? " two-rows" : "" )} 
+            <RowContainer className={"Row " + val + (numberRows.length === 2 ? " two-rows" : "" )} 
                   provided={provided} 
                   innerRef={provided.innerRef}>
 
@@ -312,12 +363,11 @@ class App extends Component {
                        mapRef={this.setMapRef}
               >
                 </MapView>
-            </Row>
+            </RowContainer>
           )}  
         </Droppable>
       )
     });
-//    console.log(rows);
 
     return (
 
