@@ -7,6 +7,7 @@ import { faGripVertical } from '@fortawesome/free-solid-svg-icons';
 import EsriTiledMapLayer from './EsriTiledMapLayer';
 import Config from './Config';
 import 'leaflet.sync';
+import './MapWrapper.css'
 import './Handle.css';
 
 library.add(faGripVertical);
@@ -134,7 +135,7 @@ componentWillUnmount(){
     return (    <div 
                       {...provided.draggableProps}
                     
-                      ref={innerRef}
+                      ref={provided.innerRef}
                       >
 
                     <Handle provided={provided} display_name={layer.display_name} />

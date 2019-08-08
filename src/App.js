@@ -30,6 +30,7 @@ class App extends Component {
     //this.invalidateMapSizes = this.invalidateMapSizes.bind(this);
     this.calculateDisplayIndexes = this.calculateDisplayIndexes.bind(this);
     this.calculateRowLayers = this.calculateRowLayers.bind(this);
+    this.updateLayerDisplayIndexesAndRows = this.updateLayerDisplayIndexesAndRows.bind(this);
     //this.findWithAttr = this.findWithAttr.bind(this);
     //this.moveWithinArray = this.moveWithinArray.bind(this);
     //this.passUpRef = this.passUpRef.bind(this);
@@ -184,6 +185,17 @@ class App extends Component {
     this.setState(newState);
   }
 
+ updateLayerDisplayIndexesAndRows(layers) {
+  let newLayers = cloneDeep(this.state.layers);
+  layers.forEach((lyr, index) => {
+    var lyrIndex = findWithAttr(newLayers, "id", lyr.id);
+    newLayers[lyrIndex].visibleIndex = index;
+  });
+  this.calculateRowLayers(newLayers)
+  this.setState({"layers": newLayers},
+    () => {setTimeout(this.invalidateMapSizes, 400)}
+  );
+ }
 
   calculateDisplayIndexes(layers) {
     var visibleIndex = 0;
@@ -192,14 +204,15 @@ class App extends Component {
         lyr.visibleIndex = visibleIndex;
         visibleIndex ++;
       }
+
       return lyr;
     });
     return newLayers;
   }
   
 calculateRowLayers(layers) {
-  let numberOfLayersOn = layers.filter(i => i.isToggledOn).length;
   let visibleLayers = layers.filter(i => i.isToggledOn);
+  let numberOfLayersOn = visibleLayers.length;
   visibleLayers.sort(function(a,b){
     return a.visibleIndex - b.visibleIndex;
   })
@@ -209,9 +222,11 @@ calculateRowLayers(layers) {
     case 2:
     case 3:
       visibleLayers.forEach(i => i.row = "row1");
+      break;
     case 4:
       visibleLayers.slice(0,2).forEach(i => i.row = "row1");
       visibleLayers.slice(2).forEach(i => i.row = "row2");
+      break;
     case 5:
     case 6:
       visibleLayers.slice(0,3).forEach(i => i.row = "row1");
@@ -290,14 +305,31 @@ calculateRowLayers(layers) {
             </DragDropContext>
           </div>
           */}
+          
+          {this.state.numberOfLayersOn === 0 && 
+            <div className='no-maps'>
+               <p>Welcome to Stillwater from the Air!</p>
+               <p>
+                With this website you can see how Stillwater and Oklahoma State University 
+                have changed over the years.
+               </p>
+               <p>
+                Click or tap on one of the years at the bottom of the screen. You
+                can select up to 8 at a time. Click or tap it again to turn it off.
+                </p>
+             </div>
+          }
 
-          <MapsContainer layers={this.state.layers} 
-                         mapCenter={this.mapCenter}
-                         geocodeResult={this.state.geocode}
-                         labelLayerOn={this.state.labelLayerOn}
-                         >
-      
-          </MapsContainer>
+          {this.state.numberOfLayersOn > 0 && 
+            <MapsContainer layers={this.state.layers} 
+                           mapCenter={this.mapCenter}
+                           geocodeResult={this.state.geocode}
+                           labelLayerOn={this.state.labelLayerOn}
+                           updateLayerDisplayIndexesAndRows={this.updateLayerDisplayIndexesAndRows}
+                           >
+        
+            </MapsContainer>
+          }
 
           {this.state.numberOfLayersOn > 0 && 
             <UtilityBar transmitGeocode={this.transmitGeocode} 

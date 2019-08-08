@@ -1,3 +1,8 @@
+/*
+*  Takes an array of objects and returns the index 
+*  of the member with the supplied attribute value.
+*  If not found, returns -1.
+*/
 export function findWithAttr(array, attr, value) {
     for(var i = 0; i < array.length; i += 1) {
         if(array[i][attr] === value) {
@@ -7,6 +12,11 @@ export function findWithAttr(array, attr, value) {
     return -1;
   }
 
+/*
+*	Moves items within an array. From and to arguments
+*   Represent the index numbers. Returns nothing, as 
+*   it modifies the array in place.
+*/
 export function moveWithinArray(array, from, to) {
     array.splice(to, 0, array.splice(from, 1)[0]);
   }

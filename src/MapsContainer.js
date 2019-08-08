@@ -19,13 +19,14 @@ class MapsContainer extends Component {
     this.syncMaps = this.syncMaps.bind(this);
     this.unsyncMaps = this.unsyncMaps.bind(this);
     this.invalidateMapSizes = this.invalidateMapSizes.bind(this);
+    //this.updateLayerDisplayIndexesAndRows = this.updateLayerDisplayIndexesAndRows.bind(this);
     //this.calculateDisplayIndexes = this.calculateDisplayIndexes.bind(this);
     //this.calculateRowLayers = this.calculateRowLayers.bind(this);
     //this.moveWithinArray = this.moveWithinArray.bind(this);
     this.state = {"layers":[],
                   "mapRefs": {},
-                  "rows":{ "row1":[], "row2":[]},
-                  "numberRows": ["row1"], //default to include one row so the no-maps message displays 
+                //  "rows":{ "row1":[], "row2":[]},
+                  //"numberRows": ["row1"], //default to include one row so the no-maps message displays 
                   "numberOfLayersOn": 0}
    //               "geocodeResult": {},
    //               "labelLayerOn": true};
@@ -66,22 +67,22 @@ class MapsContainer extends Component {
     }
   }
 
-
  onDragEnd(draggedLayer) {
 
     if (draggedLayer.destination === null) {
       return;
     }
 
-    let allLayers = cloneDeep(this.state.layers);
+    let allLayers = this.props.layers;
     let currentRow = draggedLayer.source.droppableId;  
     let destRow = draggedLayer.destination.droppableId;
     
     let layerId = draggedLayer.draggableId.replace("draggable-","");
     
     let currentLayerIndex;
+    
     if (currentRow === "row2") {
-      currentLayerIndex = this.state.rows["row1"].length + draggedLayer.source.index;
+      currentLayerIndex = allLayers.filter(i => i.row === "row1").length + draggedLayer.source.index;
     }
     else {
       currentLayerIndex = draggedLayer.source.index;
@@ -90,7 +91,7 @@ class MapsContainer extends Component {
     let destinationIndex;
     
     if (destRow === "row2") {
-      destinationIndex = this.state.rows["row1"].length + draggedLayer.destination.index;
+      destinationIndex = allLayers.filter(i => i.row === "row1").length + draggedLayer.destination.index;
     }
     else {
       destinationIndex = draggedLayer.destination.index;
@@ -100,15 +101,15 @@ class MapsContainer extends Component {
     console.log("Destination Index: " + destinationIndex);
 
     let allTurnedOnLayers = allLayers.filter(i => i.isToggledOn);
-    console.log(allTurnedOnLayers[0].id);
-    this.moveWithinArray(allTurnedOnLayers, currentLayerIndex, destinationIndex);
-    console.log(allTurnedOnLayers[0].id);
-    let newState = this.splitLayersIntoRows(allTurnedOnLayers, this.state.numberOfLayersOn);
+    moveWithinArray(allTurnedOnLayers, currentLayerIndex, destinationIndex);
+ 	this.props.updateLayerDisplayIndexesAndRows(allTurnedOnLayers);
 
-    this.setState(
-      {...newState, "layers": allLayers}, 
-      () => {setTimeout(this.invalidateMapSizes, 400)} 
-    );
+    //let newState = this.splitLayersIntoRows(allTurnedOnLayers, this.state.numberOfLayersOn);
+
+    //this.setState(
+    //  {...newState, "layers": allLayers}, 
+    //  () => {setTimeout(this.invalidateMapSizes, 400)} 
+    //);
 
 
   }
@@ -161,15 +162,15 @@ class MapsContainer extends Component {
     //console.log("App componentDidUpdate");
     
 
-    if (prevState.layers.filter(i => i.isToggledOn).length !== 
-         this.state.layers.filter(i => i.isToggledOn).length) {
+    if (prevProps.layers.filter(i => i.isToggledOn).length !== 
+         this.props.layers.filter(i => i.isToggledOn).length) {
 
       this.invalidateMapSizes();
     }
 
-    if (prevState.geocode !== this.state.geocode) {
+    if (prevProps.geocode !== this.props.geocode) {
       let randomMap = Object.entries(this.state.mapRefs)[0][1];
-      let bbox = this.state.geocode.geocode.bbox;
+      let bbox = this.props.geocode.geocode.bbox;
       randomMap.leafletElement.fitBounds(bbox);
     }
 
@@ -177,23 +178,35 @@ class MapsContainer extends Component {
 
 
   render() {
+  	let layers = this.props.layers.filter(lyr => lyr.isToggledOn);
+  	let numberRows = [];
+    layers.forEach(lyr => {
+    	numberRows.push(lyr.row);
+    });
+    numberRows = new Set(numberRows);
+    numberRows = [...numberRows];
 
-    const numberRows = this.state.numberRows;
-
-    const numberOfLayersOn = this.state.numberOfLayersOn;
-
-    let row1Layers = this.props.layers.filter(i => i.row === "row1");
+    let row1Layers = layers.filter(i => i.row === "row1");
     row1Layers.sort((a, b) => a.visibleIndex - b.visibleIndex);
-    let row2Layers = this.props.layers.filter(i => i.row === "row2");
+    let row2Layers = layers.filter(i => i.row === "row2");
     row2Layers.sort((a, b) => a.visibleIndex - b.visibleIndex);
+    
 
     let rows = numberRows.map( (val, index) => { 
       return (
         <Droppable droppableId={val} key={val} direction="horizontal">
-          {provided => (
+          {(provided, snapshot) => (
             <RowContainer className={"Row " + val + (numberRows.length === 2 ? " two-rows" : "" )} 
-                  provided={provided} 
-                  innerRef={provided.innerRef}>
+                  provided={provided}
+                  snapshot={snapshot}
+                  passUpRef={this.passUpRef}
+				  geocodeResult={this.state.geocode}
+                  mapRef={this.setMapRef} 
+                  innerRef={provided.innerRef}
+                  syncMaps={this.syncMaps}
+                  unsyncMaps={this.unsyncMaps}
+                  invalidateMapSizes={this.invalidateMapSizes}
+                  layers={val === "row1" ? row1Layers : row2Layers}>
 
                 {/*
               <MapView layers={this.state.rows[val]}
@@ -228,4 +241,4 @@ class MapsContainer extends Component {
   }
 }
 
-export default MapsContainer;
+export default React.forwardRef((props, ref) => <MapsContainer mapRef={ref} {...props} />);;
