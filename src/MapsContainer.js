@@ -164,8 +164,13 @@ class MapsContainer extends Component {
 
     if (prevProps.layers.filter(i => i.isToggledOn).length !== 
          this.props.layers.filter(i => i.isToggledOn).length) {
-
+      console.log("invalidateSize due to toggled Layers");
       this.invalidateMapSizes();
+    }
+
+    else if (JSON.stringify(prevProps.layers) !== JSON.stringify(this.props.layers)){
+      console.log("invalidateSize due to layers change");
+      setTimeout(this.invalidateMapSizes, 400);
     }
 
     if (prevProps.geocode !== this.props.geocode) {
