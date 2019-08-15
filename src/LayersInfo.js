@@ -187,7 +187,15 @@ module.exports = [
         "thumbnail_file": "thumb_payne_2010.JPG",
         "maxZoom": 19
       },
-
+      {
+        "sortVal": 2017,    
+        "type": "EsriDynamicMapLayer", 
+        "id": "stw2017",
+        "display_name": "2017",
+        "thumbnail_file": "thumb_osuOrange.JPG",
+        "url": "http://arcgis.stillwater.org/arcgis/rest/services/2017Aerial/2017Aerial/MapServer",
+        "maxZoom": 20
+      },
       {
         "sortVal": 9999,    
         "type": "EsriTiledMapLayer", 

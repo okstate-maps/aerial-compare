@@ -21,3 +21,12 @@ export function moveWithinArray(array, from, to) {
     array.splice(to, 0, array.splice(from, 1)[0]);
   }
 
+export function compareArrays(array1, array2) {
+	var arraysAreEqual = true;
+	for (var i = array1.length; i--;){
+		if (array1[i] !== array2[i]) {
+			arraysAreEqual = false;
+		}
+	}
+	return arraysAreEqual;
+}

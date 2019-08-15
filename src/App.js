@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Vex from 'vex-js';
 import plugin from 'vex-dialog';
 import Fullscreen from 'react-fullscreen-crossbrowser';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { cloneDeep } from 'lodash';
 import { findWithAttr, moveWithinArray } from './Util';
 import UtilityBar from './UtilityBar';
@@ -44,7 +43,6 @@ class App extends Component {
   }
 
   toggleLabels() {
-    //console.log("toggleLabels");
     let curr = this.state.labelLayerOn;
     this.setState({"labelLayerOn": !curr});
   }
@@ -92,9 +90,7 @@ class App extends Component {
   });
   newLayers = this.calculateRowLayers(newLayers);
 
-  this.setState({"layers": newLayers},
-    () => {setTimeout(this.invalidateMapSizes, 400)}
-  );
+  this.setState({"layers": newLayers});
  }
 
  calculateDisplayIndexes(layers) {
@@ -176,6 +172,7 @@ calculateRowLayers(layers) {
                            mapCenter={this.mapCenter}
                            geocodeResult={this.state.geocode}
                            labelLayerOn={this.state.labelLayerOn}
+                           numberOfLayersOn={this.state.numberOfLayersOn}
                            updateLayerDisplayIndexesAndRows={this.updateLayerDisplayIndexesAndRows}
                            >
         

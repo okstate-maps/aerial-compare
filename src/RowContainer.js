@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
+import React from 'react';
+import { Draggable } from 'react-beautiful-dnd';
 import MapWrapper from './MapWrapper';
 
 class RowContainer extends React.Component {
 
   render() {
-    const { provided, snapshot, innerRef, layers } = this.props;
+    const { provided, layers } = this.props;
 
   	let maps = layers.map((layer, index) => (
 		<Draggable draggableId={"draggable-"+layer.id} 
@@ -23,6 +23,8 @@ class RowContainer extends React.Component {
 		        passUpRef={this.props.passUpRef}
 		        mapRef={this.props.mapRef}
 		        syncMaps={this.props.syncMaps}
+		        geocodeResult={this.props.geocodeResult}
+		        clearGeocode={this.props.clearGeocode}
 		        unsyncMaps={this.props.unsyncMaps}
 		        labelLayerOn={this.props.labelLayerOn}
 		        invalidateMapSizes={this.props.invalidateMapSizes}
