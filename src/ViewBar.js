@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { cloneDeep } from 'lodash';
-//import sortOn from 'sort-on';
-//import FlipMove from 'react-flip-move';
 import Item from './Item';
 import AddLayerItem from './AddLayerItem';
 import ScrollButton from './ScrollButton';
@@ -14,7 +12,6 @@ class ViewBar extends Component {
     super(props);
     this.handleItemClick = this.handleItemClick.bind(this);
     this.handleScrollButtonClick = this.handleScrollButtonClick.bind(this);
-    //this.sortItems = this.sortItems.bind(this);
     this.addLayer = this.addLayer.bind(this);
     this.scrollTo = this.scrollTo.bind(this);
     this.onWheel = this.onWheel.bind(this);
@@ -36,13 +33,10 @@ class ViewBar extends Component {
   }
 
   handleScrollButtonClick(scrollDirection) {
-    //console.log(scrollDirection);
     this.scrollTo(scrollDirection, 350);
-
   }
 
   addLayer(data) {
-    console.log(data);
     let state = this.state,
       new_layer = data,
       id = new_layer.display_name + "_new", //lazy id baby
@@ -62,7 +56,6 @@ class ViewBar extends Component {
   }
 
   componentWillUpdate(){
-    //console.log("ViewBar WillUpdate");
 
   }
 
@@ -72,24 +65,12 @@ class ViewBar extends Component {
 
   componentWillMount(prevProps, prevState){
     //for the initial app load, set state using LayersInfo
-    //console.log("ViewBar mounted");
     let layers = LayersInfo.map(item => ({...item, isToggledOn: false}));
     layers = layers.sort( (a, b) => {
       return b.sortVal - a.sortVal 
     })
     this.setState({"layers": layers});
   }
-
-  // sortItems(layers) {
-  //   layers = layers.sort( (a, b) =>, "isToggledOn");
-  //   let toggledOnSubarray = layers.filter(lyr => lyr.isToggledOn);
-  //   console.log(toggledOnSubarray);
-  //   let offSubarray = layers.filter(lyr => !lyr.isToggledOn);
-  //   console.log(offSubarray);
-  //   offSubarray = sortOn(offSubarray, "-sortVal");
-  //   return toggledOnSubarray.concat(offSubarray);
-  // }
-
 
   onWheel(e){
     let elem  = document.getElementById("viewbarItems"),
@@ -150,16 +131,8 @@ class ViewBar extends Component {
            {items.map(item => <Item 
                 numberOfLayersOn={this.props.numberOfLayersOn}
                 key={item.id} 
-                type={item.type}
-                id={item.id}
-                url={item.url}
-                layers={item.layers}
-                sortVal={item.sortVal}
-                display_name={item.display_name}
-                thumbnail_file={item.thumbnail_file}
-                maxZoom={item.maxZoom ? item.maxZoom : 20}
                 onItemClick={this.handleItemClick}
-
+                {...item}
               />)}
 
            <AddLayerItem numberOfLayersOn={this.props.numberOfLayersOn} addLayer={this.addLayer} />

@@ -3,10 +3,10 @@
 Each layer has the following required values:
 
 	sortVal {numeric}: value to be used to determine the value used for sort order.
-	type {string}: The Leaflet layer type. Values can be WMSTileLayer, EsriTiledMapLayer, TiledLayer, and others.
+	type {string}: The Leaflet layer type. Values can be WMSTileLayer, EsriTiledMapLayer, EsriDynamicMapLayer, TiledLayer, and others.
 		See Leaflet documentation for others. Esri Leaflet has more also, but they need porting to leaflet-react.
 	id {string}: A unique identifier used to keep React happy.
-	display_name {string}: What you want to be displayed over the layer's selection tile.
+	display_name {string}: What you want to be displayed over the layer's selection tile. Keep it short!
 	url {string}: The url to the service
 
 */
@@ -187,7 +187,6 @@ module.exports = [
         "thumbnail_file": "thumb_payne_2010.JPG",
         "maxZoom": 19
       },
-
       {
         "sortVal": 9999,    
         "type": "EsriTiledMapLayer", 
@@ -197,6 +196,36 @@ module.exports = [
         "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
         "maxZoom": 19
       }
+      // {
+      //   "sortVal": 2017,    
+      //   "type": "EsriDynamicMapLayer", 
+      //   "id": "stw2017",
+      //   "display_name": "2017",
+      //   "thumbnail_file": "thumb_osuOrange.JPG",
+      //   "url": "http://arcgis.stillwater.org/arcgis/rest/services/2017Aerial/2017Aerial/MapServer",
+      //   "maxZoom": 20
+      // },
+      // {
+      //   "sortVal": 2016,    
+      //   "type": "EsriDynamicMapLayer", 
+      //   "id": "plss",
+      //   "display_name": "PLSS",
+      //   "transparent": false,
+      //   "attribution": "Hi there!!!!",
+      //   //"layers": [2,3],
+      //   "thumbnail_file": "thumb_osuOrange.JPG",
+      //   "url": "https://gis.blm.gov/arcgis/rest/services/Cadastral/BLM_Natl_PLSS_CadNSDI/MapServer",
+      //   "maxZoom": 20
+      // },
+      // {
+      //   "sortVal": 2015,    
+      //   "type": "EsriDynamicMapLayer", 
+      //   "id": "Arbuckle",
+      //   "display_name": "Arbuckle",
+      //   "thumbnail_file": "thumb_osuOrange.JPG",
+      //   "url": "http://rest.owrb.ok.gov/arcgis/rest/services/Open_Data_Only/Arbuckle_Simpson_Study/MapServer",
+      //   "maxZoom": 20
+      // },
       // {
       //   "sortVal": 2017,    
       //   "type": "WMSTileLayer", 

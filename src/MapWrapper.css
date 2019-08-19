@@ -1,4 +1,31 @@
+.no-maps {
+	width:60%;
+	max-width: 60%;
+	left:20%;
+	height:100%;
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: stretch;
+}
 
+@media (max-width:650px){
+	.no-maps{
+		width:90%;
+		left:5%;
+	}
+}
+.no-maps p {
+	font-family: 'Montserrat', 'Open Sans', sans-serif;
+	flex: none;
+	padding:20px;
+	text-align: justify;
+	-webkit-user-select: none;  
+  	-moz-user-select: none;     
+  	-ms-user-select: none;      
+  	user-select: none;  
+
+}
 #maps {
 	background-color: #FF6600;
 }

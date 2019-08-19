@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import MapWrapper from './MapWrapper';
+
+
+
 import Config from './Config';
 import 'leaflet.sync';
 
@@ -81,7 +83,7 @@ class MapView extends Component {
                     layer={layer}
                     innerRef={provided.innerRef}
                     key={layer.id}
-                    numberLayers={filtered_layers.length}
+                    {/*numberLayers={filtered_layers.length}*/}
                     layerIndex={index}
                     provided={provided}
                     isDragging={snapshot.isDragging}

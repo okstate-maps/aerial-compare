@@ -14,9 +14,11 @@ class Item extends Component {
   onClick(e) {
 
     let numLyrs = this.props.numberOfLayersOn;
-    if (numLyrs === 8) {
+
+  
+    if (numLyrs === Config.maxLayers) {
       if (!this.state.isToggledOn){
-        window.vex.dialog.alert(Config.maxLayersWarning);
+        window.vex.dialog.alert(Config.maxLayersWarning.replace("{maxLayers}", Config.maxLayers));
         return
       }
     }
@@ -26,28 +28,39 @@ class Item extends Component {
       opacity: 1.0
     }));
 
-    this.props.onItemClick({
-      "sortVal": this.props.sortVal,
+
+    let props = {
       "opacity": 1.0,
-      "isToggledOn": !this.state.isToggledOn,
-      "id": this.props.id,
-      "thumbnail_file": this.props.thumbnail_file,
-      "url": this.props.url,
-      "type": this.props.type,
-      "layers": this.props.layers,
-      "maxZoom": this.props.maxZoom,
-      "display_name": this.props.display_name
-    });
+      ...this.props
+    };
+    delete(props.onItemClick);
+    delete(props.isToggledOn);   
+    props.isToggledOn = !this.state.isToggledOn;
+    
+    this.props.onItemClick(props);
+
+
+
+    //   "sortVal": this.props.sortVal,
+    //   "id": this.props.id,
+    //   "thumbnail_file": this.props.thumbnail_file,
+    //   "url": this.props.url,
+    //   "type": this.props.type,
+    //   "layers": this.props.layers,
+    //   "maxZoom": this.props.maxZoom,
+    //   "display_name": this.props.display_name
+
   }
 
   render() {
+    let dispName = this.props.display_name;
     return (
       <button className={this.state.isToggledOn ? 'item on' : 'item off'} 
           onClick={this.onClick} 
           style={{backgroundImage: "url('assets/images/" + this.props.thumbnail_file + "')"}}
           id={this.props.id}>
         <div className="label">
-          {this.props.display_name.length >= 40 ? this.props.display_name.slice(0,this.props.display_name.slice(0,41).lastIndexOf(" "))+"..." : this.props.display_name}
+          {dispName.length >= 40 ? dispName.slice(0,dispName.slice(0,41).lastIndexOf(" "))+"..." : dispName}
         </div>
 
         <div className="button">
