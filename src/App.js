@@ -7,9 +7,8 @@ import { findWithAttr, moveWithinArray } from './Util';
 import UtilityBar from './UtilityBar';
 import ViewBar from './ViewBar';
 import MapsContainer from './MapsContainer';
+import { maxLayers } from './Config';
 import './App.css';
-
-
 
 class App extends Component {
 
@@ -162,7 +161,7 @@ calculateRowLayers(layers) {
                </p>
                <p>
                 Click or tap on one of the years at the bottom of the screen. You
-                can select up to 8 at a time. Click or tap it again to turn it off.
+                can select up to {maxLayers} at a time. Click or tap it again to turn it off.
                 </p>
              </div>
           }

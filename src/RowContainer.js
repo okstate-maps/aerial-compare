@@ -14,9 +14,9 @@ class RowContainer extends React.Component {
 		 	{(provided, snapshot) => (
 		  	<MapWrapper
 		        layer={layer}
+		        numberLayers={layers.length}
 		        innerRef={provided.innerRef}
 		        key={layer.id}
-		        numberLayers={layers.length}
 		        layerIndex={index}
 		        provided={provided}
 		        isDragging={snapshot.isDragging}

@@ -140,16 +140,15 @@ class MapWrapper extends Component {
                   <Marker position={this.props.geocodeResult}
                           onClick={this.onGeocodeClick}/>
                 }
-                  <TileLayer url={this.labelLayerUrl}
+                  <TileLayer 
+                    key={"labels-" + layer.id}
+                    url={this.labelLayerUrl}
                     opacity={this.props.labelLayerOn ? 100 : 0}
                     pane="shadowPane"
                     zIndex={1000000} />
                   <Layer 
                     key={layer.id} 
-                    url={layer.url}
-                    layers={layer.layers}
-                    maxZoom={layer.maxZoom}
-                    opacity={layer.opacity}
+                    {...layer}
                     />
 
             </Map>

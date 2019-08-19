@@ -51,7 +51,6 @@ class ViewBar extends Component {
 
   componentWillMount(prevProps, prevState){
     //for the initial app load, set state using LayersInfo
-    //console.log("ViewBar mounted");
     let layers = LayersInfo.map(item => ({...item, isToggledOn: false}));
     layers = layers.sort( (a, b) => {
       return b.sortVal - a.sortVal 
@@ -59,15 +58,6 @@ class ViewBar extends Component {
     this.setState({"layers": layers});
   }
 
-  // sortItems(layers) {
-  //   layers = layers.sort( (a, b) =>, "isToggledOn");
-  //   let toggledOnSubarray = layers.filter(lyr => lyr.isToggledOn);
-  //   console.log(toggledOnSubarray);
-  //   let offSubarray = layers.filter(lyr => !lyr.isToggledOn);
-  //   console.log(offSubarray);
-  //   offSubarray = sortOn(offSubarray, "-sortVal");
-  //   return toggledOnSubarray.concat(offSubarray);
-  // }
 
   onScroll(e){
     console.log("onScroll");
@@ -132,15 +122,8 @@ class ViewBar extends Component {
            {items.map(item => <Item 
                 numberOfLayersOn={this.props.numberOfLayersOn}
                 key={item.id} 
-                type={item.type}
-                id={item.id}
-                url={item.url}
-                layers={item.layers}
-                sortVal={item.sortVal}
-                display_name={item.display_name}
-                thumbnail_file={item.thumbnail_file}
-                maxZoom={item.maxZoom ? item.maxZoom : 20}
                 onItemClick={this.handleItemClick}
+                {...item}
               />)}
           </div>
         <ScrollButton direction="right" onClick={this.handleScrollButtonClick}/>
@@ -148,5 +131,15 @@ class ViewBar extends Component {
     );
   }
 }
+
+
+                // type={item.type}
+                // id={item.id}
+                // url={item.url}
+                // layers={item.layers}
+                // sortVal={item.sortVal}
+                // display_name={item.display_name}
+                // thumbnail_file={item.thumbnail_file}
+                // maxZoom={item.maxZoom ? item.maxZoom : 20}
 
 export default ViewBar;
