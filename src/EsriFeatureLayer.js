@@ -1,14 +1,14 @@
 import {MapLayer, withLeaflet} from 'react-leaflet';
-import {dynamicMapLayer} from 'esri-leaflet';
+import {featureLayer} from 'esri-leaflet';
 
 type Props = {
   url: string 
 } & MapLayerProps
 
-class EsriDynamicMapLayer extends MapLayer<LeafletElement, Props> {
+class EsriFeatureLayer extends MapLayer<LeafletElement, Props> {
   createLeafletElement(props: Props): LeafletElement {
-  	let options = {...props, "f": "image"};
-    const el = dynamicMapLayer(
+  	let options = {...props};
+    const el = featureLayer(
       options
     )
     this.contextValue = { ...props.leaflet, popupContainer: el }
@@ -22,4 +22,4 @@ class EsriDynamicMapLayer extends MapLayer<LeafletElement, Props> {
   }
 }
 
-export default withLeaflet(EsriDynamicMapLayer)
+export default withLeaflet(EsriFeatureLayer)

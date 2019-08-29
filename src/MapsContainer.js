@@ -167,6 +167,7 @@ class MapsContainer extends Component {
                   labelLayerOn={this.props.labelLayerOn}
                   unsyncMaps={this.unsyncMaps}
                   invalidateMapSizes={this.invalidateMapSizes}
+                  overlays={this.props.overlays}
                   layers={val === "row1" ? row1Layers : row2Layers}>
             </RowContainer>
           )}  

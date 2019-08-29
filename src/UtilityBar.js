@@ -3,11 +3,11 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand, faCompress } from '@fortawesome/free-solid-svg-icons';
 import Geocoder from './Geocoder';
+import AddOverlay from './AddOverlay';
 import './UtilityBar.css';
 
 library.add(faExpand);
 library.add(faCompress);
-
 
 class UtilityBar extends Component {
 
@@ -38,6 +38,9 @@ class UtilityBar extends Component {
           <label htmlFor="labelsCheckbox">Map&nbsp;Labels</label>
         </div>
         <Geocoder transmitGeocode={this.transmitGeocode} />
+        <AddOverlay numberOfLayersOn={this.props.numberOfLayersOn} 
+                    addOverlay={this.props.addOverlay}
+                    overlays={this.props.overlays} />
         <div>
           <button onClick={() => this.props.toggleFullscreen()}>
             <FontAwesomeIcon icon={this.props.isFullscreenEnabled ? "compress" : "expand"} size="2x"/>

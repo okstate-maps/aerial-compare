@@ -14,6 +14,7 @@ class RowContainer extends React.Component {
 		 	{(provided, snapshot) => (
 		  	<MapWrapper
 		        layer={layer}
+		        overlays={this.props.overlays}
 		        numberLayers={layers.length}
 		        innerRef={provided.innerRef}
 		        key={layer.id}

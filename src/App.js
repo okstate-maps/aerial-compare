@@ -6,6 +6,7 @@ import { cloneDeep } from 'lodash';
 import { findWithAttr, moveWithinArray } from './Util';
 import UtilityBar from './UtilityBar';
 import ViewBar from './ViewBar';
+import Modal from './Modal';
 import MapsContainer from './MapsContainer';
 import { maxLayers } from './Config';
 import './App.css';
@@ -18,13 +19,22 @@ class App extends Component {
     this.transmitGeocode = this.transmitGeocode.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
     this.toggleLabels = this.toggleLabels.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleSpinner = this.toggleSpinner.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
     this.calculateDisplayIndexes = this.calculateDisplayIndexes.bind(this);
     this.calculateRowLayers = this.calculateRowLayers.bind(this);
     this.updateLayerDisplayIndexesAndRows = this.updateLayerDisplayIndexesAndRows.bind(this);
+    this.addOverlay = this.addOverlay.bind(this);
     this.state = {"layers":[],
+                  "overlays":[],
                   "numberOfLayersOn": 0, 
                   "geocodeResult": {},
-                  "labelLayerOn": true};
+                  "labelLayerOn": true,
+                  "showSpinner": false,
+                  "modalIsOpen": false,
+                  "modalContent": ""};
 
     //alert alert hack ahead
     window.vex = Vex;
@@ -45,6 +55,39 @@ class App extends Component {
     let curr = this.state.labelLayerOn;
     this.setState({"labelLayerOn": !curr});
   }
+
+  toggleSpinner(bool) {
+    this.setState({"showSpinner": bool});
+  }
+
+  toggleModal(bool) {
+    this.setState({"modalIsOpen": bool});
+  }
+
+  openModal(modalType, modalContent){
+    
+    this.setState({
+      modalType: modalType,
+      modalContent: modalContent
+    });
+    this.toggleModal(true);
+  }
+  
+  closeModal() {
+    this.toggleModal(false);
+  }
+
+  addOverlay(data) {
+    console.log("------ ADD OVERLAY ------");
+    let overlays = cloneDeep(this.state.overlays);
+      
+    var new_layer = data;
+    new_layer.isOverlay = true;
+    new_layer.id = new_layer.display_name.replace(" ", "_") + "_new"; //lazy id baby
+    overlays.push(new_layer);
+    this.setState({"overlays":overlays});
+  }
+
 
   handleItemClick(data) {
     let found = false;
@@ -151,6 +194,14 @@ calculateRowLayers(layers) {
           <header className="App-header">
             Stillwater from the Air
           </header>
+
+          <Modal isOpen={this.state.modalIsOpen} 
+              toggleSpinner={this.toggleSpinner} 
+              openModal={this.openModal}
+              closeModal={this.closeModal}
+              modalContent={this.state.modalContent}
+              modalType={this.state.modalType}
+              />
          
           {this.state.numberOfLayersOn === 0 && 
             <div className='no-maps'>
@@ -168,6 +219,7 @@ calculateRowLayers(layers) {
 
           {this.state.numberOfLayersOn > 0 && 
             <MapsContainer layers={this.state.layers} 
+                           overlays={this.state.overlays}
                            mapCenter={this.mapCenter}
                            geocodeResult={this.state.geocode}
                            labelLayerOn={this.state.labelLayerOn}
@@ -183,11 +235,19 @@ calculateRowLayers(layers) {
                         toggleFullscreen={this.toggleFullscreen}
                         toggleLabels={this.toggleLabels}
                         labelLayerOn={this.state.labelLayerOn}
-                        isFullscreenEnabled={this.state.isFullscreenEnabled} />
+                        isFullscreenEnabled={this.state.isFullscreenEnabled}
+                        overlays={this.state.overlays}
+                        addOverlay={this.addOverlay}
+                        openModal={this.openModal}
+                        closeModal={this.closeModal}
+                         />
           }
 
           <ViewBar onItemClick={this.handleItemClick}
-                   numberOfLayersOn={this.state.numberOfLayersOn} />
+                   numberOfLayersOn={this.state.numberOfLayersOn}
+                   toggleModal={this.toggleModal}
+                   openModal={this.openModal}
+                   closeModal={this.closeModal} />
 
         </div>
       </Fullscreen>

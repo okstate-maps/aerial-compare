@@ -25,7 +25,9 @@
     "react-fullscreen-crossbrowser": "^1.0.9",
     "react-leaflet": "^2.4.0",
     "react-leaflet-control": "^2.0.0",
+    "react-modal": "^3.9.1",
     "react-scripts": "^3.1.1",
+    "react-spinners": "^0.6.0",
     "vex-js": "^4.1.0",
     "webfontloader": "^1.6.28",
     "why-did-you-update": "^1.0.6"

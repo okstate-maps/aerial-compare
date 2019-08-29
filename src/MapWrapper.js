@@ -6,6 +6,7 @@ import { faGripVertical } from '@fortawesome/free-solid-svg-icons';
 //import Control from 'react-leaflet-control';
 import EsriTiledMapLayer from './EsriTiledMapLayer';
 import EsriDynamicMapLayer from './EsriDynamicMapLayer';
+import EsriFeatureLayer from './EsriFeatureLayer';
 import Config from './Config';
 import 'leaflet.sync';
 import './MapWrapper.css'
@@ -109,11 +110,31 @@ class MapWrapper extends Component {
 
   render() {
     const layer_components = {
+      "EsriFeatureLayer": EsriFeatureLayer,
       "EsriTiledMapLayer": EsriTiledMapLayer,
       "EsriDynamicMapLayer": EsriDynamicMapLayer,
       "WMSTileLayer": WMSTileLayer,
       "TileLayer": TileLayer
     }
+
+    const overlays = this.props.overlays;
+    const Overlays = () => {return (
+      <React.Fragment>
+        {overlays.map(layer => {
+          let Overlay = layer_components[layer.type];
+          return  (
+            <Overlay  
+                url={layer.url}
+                key={layer.id} 
+                zIndex={100000}
+                pane="overlayPane"
+                {...layer}
+                />
+          )
+        })}
+      </React.Fragment>)
+    };
+    console.log("Overlays: " + Overlays);
 
     const layer = this.props.layer;
     let that = this;
@@ -146,6 +167,7 @@ class MapWrapper extends Component {
                     opacity={this.props.labelLayerOn ? 100 : 0}
                     pane="shadowPane"
                     zIndex={1000000} />
+                  {this.props.overlays.length > 0 && <Overlays />}
                   <Layer 
                     key={layer.id} 
                     {...layer}

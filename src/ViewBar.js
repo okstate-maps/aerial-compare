@@ -135,7 +135,12 @@ class ViewBar extends Component {
                 {...item}
               />)}
 
-           <AddLayerItem numberOfLayersOn={this.props.numberOfLayersOn} addLayer={this.addLayer} />
+            <AddLayerItem 
+              numberOfLayersOn={this.props.numberOfLayersOn} 
+              openModal={this.props.openModal}
+              closeModal={this.props.closeModal}
+              addLayer={this.addLayer} 
+              />
           </div>
         <ScrollButton direction="right" onClick={this.handleScrollButtonClick}/>
       </footer>

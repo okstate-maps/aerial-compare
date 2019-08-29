@@ -59,8 +59,8 @@ class Item extends Component {
           onClick={this.onClick} 
           style={{backgroundImage: "url('assets/images/" + this.props.thumbnail_file + "')"}}
           id={this.props.id}>
-        <div className="label">
-          {dispName.length >= 40 ? dispName.slice(0,dispName.slice(0,41).lastIndexOf(" "))+"..." : dispName}
+        <div className={dispName.length >= 20 ? "label long-title" : "label"}>
+          {dispName.length >= 20 ? dispName.slice(0,dispName.slice(0,21).lastIndexOf(" "))+"..." : dispName}
         </div>
 
         <div className="button">

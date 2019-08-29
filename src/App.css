@@ -74,6 +74,10 @@ table {
 }
 
 
+.orange {
+  color: #FE5c00;
+}
+
 @media (max-width: 461px) {
 
   .App-header {
